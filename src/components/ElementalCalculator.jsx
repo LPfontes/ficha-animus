@@ -57,7 +57,7 @@ export default function ElementalCalculator({ element, attributes }) {
                     {finalDamage}
                   </div>
                   <div className="hit-formula">
-                    {hitData.base} + {hitData.mult}x {customAttr === 'auto' ? 'Anima' : ATTR_NAMES[customAttr]}
+                    {hitData.base} + {hitData.mult}x{bonusVal} ({customAttr === 'auto' ? 'ANI' : customAttr})
                   </div>
                 </div>
               );

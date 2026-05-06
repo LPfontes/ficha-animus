@@ -513,7 +513,11 @@ function App() {
 
 
         <footer className="app-footer">
-          Animus RPG System &copy; 2026 - Versão Beta
+          <div className="footer-line"></div>
+          <div className="footer-content">
+            <p>Animus RPG System &copy; 2026 - Versão Beta</p>
+            <p className="signature">Produzido por <span>L. P. Fontes</span></p>
+          </div>
         </footer>
       </div>
 
