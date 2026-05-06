@@ -7,7 +7,7 @@ export default function InventoryManager() {
   const [selectedCategory, setSelectedCategory] = useState('iluminacao_e_viagem');
   const [selectedItemName, setSelectedItemName] = useState('');
   const [activeItem, setActiveItem] = useState(null);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   
   const totalSlots = 20;
 

@@ -98,14 +98,41 @@ body {
 
 .app-header {
   text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.cloud-sync-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transition: all 0.3s ease;
+}
+
+.cloud-sync-btn:hover {
+  transform: translateY(-2px);
+  background: white;
+  color: var(--accent);
 }
 
 .app-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0;
   font-family: var(--font-header);
   letter-spacing: -0.02em;
+  text-shadow: 0 0 30px var(--accent-glow);
 }
 
 .app-subtitle {
@@ -265,6 +292,7 @@ body {
   overflow: hidden;
   background: rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .portrait-upload:hover {
@@ -276,6 +304,36 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.portrait-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.portrait-upload:hover .portrait-overlay {
+  opacity: 1;
+}
+
+.portrait-upload:hover img {
+  transform: scale(1.1);
 }
 
 .portrait-placeholder {
@@ -862,7 +920,7 @@ select:hover {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   cursor: pointer;
   user-select: none;
@@ -1683,6 +1741,7 @@ select:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  align-items: center;
 }
 
 @media (max-width: 600px) {
@@ -2240,4 +2299,102 @@ button.secondary {
   color: var(--accent);
   font-weight: 700;
   text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.footer-email {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-top: 0.2rem;
+  letter-spacing: 0.05em;
+}
+
+/* Persistence Manager */
+.persistence-manager {
+  margin-top: 2rem;
+  border-left: 4px solid var(--accent);
+}
+
+.persistence-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.action-row {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.divider-h {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  margin: 0.5rem 0;
+}
+
+.last-code-badge {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  background: rgba(157, 78, 221, 0.1);
+  border: 1px solid var(--accent-glow);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.last-code-badge strong {
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-family: var(--font-header);
+}
+
+.error-badge {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.2);
+  color: var(--fire);
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.85rem;
+}
+
+.warning-badge {
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid rgba(255, 170, 0, 0.2);
+  color: #ffaa00;
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.success-badge {
+  background: rgba(77, 255, 136, 0.1);
+  border: 1px solid rgba(77, 255, 136, 0.2);
+  color: var(--earth);
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.85rem;
 }

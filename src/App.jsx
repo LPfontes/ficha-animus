@@ -4,8 +4,9 @@ import CombatManager from './components/CombatManager';
 import ElementalCalculator from './components/ElementalCalculator';
 import InventoryManager from './components/InventoryManager';
 import TalentsModal from './components/TalentsModal';
+import PersistenceManager from './components/PersistenceManager';
 import { INITIAL_POINTS, ATTRIBUTES, INITIAL_STATS, LEVEL_CAPS } from './data/constants';
-import { Shield, Heart, Zap, Star, Sparkles, Camera, ChevronUp, ChevronDown, User, Sword, Wand2, Backpack, BookOpen, StarHalf } from 'lucide-react';
+import { Shield, Heart, Zap, Star, Sparkles, Camera, ChevronUp, ChevronDown, User, Sword, Wand2, Backpack, BookOpen, StarHalf, Cloud } from 'lucide-react';
 import ImageCropperModal from './components/ImageCropperModal';
 import AscendancyBonusModal from './components/AscendancyBonusModal';
 import ElementalBonusModal from './components/ElementalBonusModal';
@@ -25,6 +26,7 @@ function App() {
   const [elementalBonusAttr, setElementalBonusAttr] = useState(null);
 
   const [showTalentsModal, setShowTalentsModal] = useState(false);
+  const [showPersistenceModal, setShowPersistenceModal] = useState(false);
 
   const [attributes, setAttributes] = useState(
     ATTRIBUTES.reduce((acc, attr) => ({ ...acc, [attr]: 0 }), {})
@@ -64,6 +66,7 @@ function App() {
       reader.onloadend = () => {
         setTempImage(reader.result);
         setShowCropper(true);
+        e.target.value = null; // Reset to allow same file re-selection
       };
       reader.readAsDataURL(file);
     }
@@ -135,10 +138,35 @@ function App() {
     currentPv, currentPe, currentPa, currentProt,
     skills,
     selectedTalents,
+    pointsSpent: { pv: pointsSpentPv, pe: pointsSpentPe, ap: pointsSpentAp },
     equipment: {
       armor: selectedArmor,
       shield: selectedShield
-    }
+    },
+    image
+  };
+
+  const handleResumeData = (data) => {
+    if (!data) return;
+    setName(data.name || '');
+    setLevel(data.level || 1);
+    setAscendancy(data.ascendancy || dados.ascendencias[0].nome);
+    setElement(data.element || dados.elementos[0].nome);
+    setAttributes(data.baseAttributes || ATTRIBUTES.reduce((acc, attr) => ({ ...acc, [attr]: 0 }), {}));
+    setAscendancyBonusAttr(data.bonusAttributes?.ascendancy || null);
+    setElementalBonusAttr(data.bonusAttributes?.elemental || null);
+    setPointsSpentPv(data.pointsSpent?.pv || 0);
+    setPointsSpentPe(data.pointsSpent?.pe || 0);
+    setPointsSpentAp(data.pointsSpent?.ap || 0);
+    setCurrentPv(data.currentPv || 10);
+    setCurrentPe(data.currentPe || 10);
+    setCurrentPa(data.currentPa || 4);
+    setCurrentProt(data.currentProt || 0);
+    setSkills(data.skills || {});
+    setSelectedTalents(data.selectedTalents || []);
+    setSelectedArmor(data.equipment?.armor || dados.armaduras.tabela_base[0]);
+    setSelectedShield(data.equipment?.shield || null);
+    setImage(data.image || null);
   };
 
   // Sync current with max on level/attr change if needed, 
@@ -254,7 +282,13 @@ function App() {
                   />
                   <label htmlFor="portrait-input" className="portrait-upload">
                     {image ? (
-                      <img src={image} alt="Portrait" />
+                      <>
+                        <img src={image} alt="Portrait" />
+                        <div className="portrait-overlay">
+                          <Camera size={24} />
+                          <span>TROCAR FOTO</span>
+                        </div>
+                      </>
                     ) : (
                       <div className="portrait-placeholder">
                         <Camera size={24} />
@@ -265,6 +299,16 @@ function App() {
                 </div>
 
                 <div className="info-stats-column flex-1">
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+                    <button 
+                      className="primary cloud-sync-btn" 
+                      onClick={() => setShowPersistenceModal(true)}
+                      style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}
+                    >
+                      <Cloud size={16} />
+                      <span>Sincronizar Nuvem</span>
+                    </button>
+                  </div>
                   <div className="char-info-grid">
                     <div className="input-group">
                       <label className="input-label">NOME DO PERSONAGEM</label>
@@ -508,6 +552,8 @@ function App() {
           <div id="magia" className="section-container">
             <ElementalCalculator element={element} attributes={totalAttributes} />
           </div>
+
+
         </div>
 
 
@@ -517,6 +563,7 @@ function App() {
           <div className="footer-content">
             <p>Animus RPG System &copy; 2026 - Versão Beta</p>
             <p className="signature">Produzido por <span>L. P. Fontes</span></p>
+            <p className="footer-email">lp.desouzafontes@gmail.com</p>
           </div>
         </footer>
       </div>
@@ -552,6 +599,14 @@ function App() {
           selectedTalents={selectedTalents}
           setSelectedTalents={setSelectedTalents}
           onClose={() => setShowTalentsModal(false)}
+        />
+      )}
+
+      {showPersistenceModal && (
+        <PersistenceManager
+          characterData={characterData}
+          onResumeData={handleResumeData}
+          onClose={() => setShowPersistenceModal(false)}
         />
       )}
     </div>

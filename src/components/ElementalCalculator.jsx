@@ -10,13 +10,14 @@ export default function ElementalCalculator({ element, attributes }) {
   const [dist, setDist] = useState('pessoal');
   const [customAttr, setCustomAttr] = useState('auto');
   const [areaId, setAreaId] = useState('none');
+  const [useDoubleDistRule, setUseDoubleDistRule] = useState(true);
 
   const nativeMeters = parseInt(elementData.alcance_nativo) || 0;
   const selectedDistObj = ELEMENTAL_COSTS.distances.find(d => d.id === dist);
   const selectedMeters = selectedDistObj?.meters || 0;
 
   const isOverRange = selectedMeters > nativeMeters;
-  const isBase = lv === 1 && dist === 'pessoal' && areaId === 'none';
+
 
   const customTableDano = elementData.tabela_dano?.[lv];
   const customTableCura = elementData.tabela_cura?.[lv];
@@ -24,7 +25,7 @@ export default function ElementalCalculator({ element, attributes }) {
   const baseCost = customTable ? customTable.pe : (ELEMENTAL_COSTS.levels.find(l => l.lv === lv)?.cost || 3);
 
   let distCost = selectedDistObj?.cost || 0;
-  if (isOverRange) distCost *= 2;
+  if (isOverRange && useDoubleDistRule) distCost *= 2;
 
   const areaCost = ELEMENTAL_COSTS.areaCosts.find(a => a.id === areaId)?.cost || 0;
   const totalCost = baseCost + distCost + areaCost;
@@ -128,7 +129,17 @@ export default function ElementalCalculator({ element, attributes }) {
 
         <div className="calc-row-group">
           <div className="calc-row">
-            <label className="input-label">Extensão de Alcance</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label className="input-label">Extensão de Alcance</label>
+              <label className="header-checkbox">
+                <input
+                  type="checkbox"
+                  checked={useDoubleDistRule}
+                  onChange={(e) => setUseDoubleDistRule(e.target.checked)}
+                />
+                <span style={{ fontSize: '0.7rem' }}>Custo Dobrado</span>
+              </label>
+            </div>
             <select
               className="input-field"
               value={dist}
@@ -152,9 +163,12 @@ export default function ElementalCalculator({ element, attributes }) {
 
         <div className="calc-row">
           {isOverRange && (
-            <div className="over-range-alert animate-pulse">
+            <div className={`over-range-alert ${useDoubleDistRule ? 'animate-pulse' : ''}`} style={{ opacity: useDoubleDistRule ? 1 : 0.8 }}>
               <Info size={14} />
-              <span>Alcance selecionado ({selectedMeters}m) excede o Alcance Nativo ({elementData.alcance_nativo}). O custo de distância foi <strong>dobrado</strong>.</span>
+              <span>
+                Alcance selecionado ({selectedMeters}m) excede o Alcance Nativo ({elementData.alcance_nativo}).
+                {useDoubleDistRule ? ' O custo de distância foi dobrado.' : ' (Regra de custo dobrado desativada)'}
+              </span>
             </div>
           )}
         </div>
@@ -162,7 +176,9 @@ export default function ElementalCalculator({ element, attributes }) {
         <div className="result-area">
           <div className="stat-label" style={{ color: 'var(--air)' }}>CUSTO DE ENERGIA</div>
           <div className="stat-value" style={{ fontSize: '2.8rem', color: 'var(--air)' }}>{totalCost} PE</div>
-          {isBase && <div className="badge" style={{ position: 'absolute', top: '10px', right: '10px', background: 'var(--air)', color: 'black' }}>EFICIÊNCIA MÁXIMA</div>}
+          <div className="hit-formula" style={{ color: 'var(--air)', background: 'rgba(77, 255, 255, 0.05)', border: '1px solid rgba(77, 255, 255, 0.1)' }}>
+            {baseCost} (Base) + {distCost} (Distância) + {areaCost} (Área)
+          </div>
         </div>
       </div>
 
