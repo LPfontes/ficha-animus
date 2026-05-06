@@ -42,10 +42,19 @@ export const ELEMENTAL_COSTS = {
     { lv: 3, cost: 9, req: 'Potência Elemental' }
   ],
   distances: [
-    { id: 'pessoal', name: 'Pessoal (Toque / 0m)', cost: 0 },
-    { id: 'curto', name: 'Curto (9m)', cost: 3 },
-    { id: 'medio', name: 'Médio (18m)', cost: 6 },
-    { id: 'longo', name: 'Longo (36m)', cost: 10 }
+    { id: 'pessoal', name: 'Pessoal (Toque / 0m)', cost: 0, meters: 0 },
+    { id: 'curto', name: 'Curto (9m)', cost: 3, meters: 9 },
+    { id: 'medio', name: 'Médio (18m)', cost: 6, meters: 18 },
+    { id: 'longo', name: 'Longo (36m)', cost: 10, meters: 36 }
+  ],
+  areaCosts: [
+    { id: 'none', name: 'Alvo Único / Nenhum', cost: 0 },
+    { id: 'cone-9', name: 'Cone curto (9m)', cost: 3 },
+    { id: 'cone-18', name: 'Cone médio (18m)', cost: 6 },
+    { id: 'line-9', name: 'Linha curta (9m)', cost: 5 },
+    { id: 'line-18', name: 'Linha média (18m)', cost: 9 },
+    { id: 'burst-3', name: 'Explosão pequena (3m)', cost: 4 },
+    { id: 'burst-6', name: 'Explosão média (6m)', cost: 9 }
   ]
 };
 

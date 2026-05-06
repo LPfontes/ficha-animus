@@ -240,7 +240,7 @@
                 "descricao": "Conhecimento sobre flora, fauna, geologia, clima e ecossistemas."
             },
             {
-                "nome": "Conhecimento Arcano",
+                "nome": "Con. Arcano",
                 "descricao": "Compreensão sobre teorias mágicas, runas, rituais e artefatos místicos."
             },
             {
@@ -312,9 +312,63 @@
             "alcance_nativo": "9m",
             "ritmo": "Alta adrenalina",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 5, "mult": 1 }, "ac2": { "base": 7, "mult": 2 }, "ac3": { "base": 9, "mult": 2 }, "ac4": { "base": 11, "mult": 3 } },
-                "2": { "pe": 8, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 10, "mult": 2 }, "ac3": { "base": 12, "mult": 3 }, "ac4": { "base": 14, "mult": 4 } },
-                "3": { "pe": 12, "ac1": { "base": 9, "mult": 3 }, "ac2": { "base": 12, "mult": 3 }, "ac3": { "base": 14, "mult": 4 }, "ac4": { "base": 17, "mult": 4 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 9,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 11,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 8,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 10,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 12,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 14,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 12,
+                    "ac1": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac2": {
+                        "base": 12,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 14,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 17,
+                        "mult": 4
+                    }
+                }
             }
         },
         {
@@ -325,9 +379,63 @@
             "alcance_nativo": "36m",
             "ritmo": "Pressão constante",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 3, "mult": 1 }, "ac2": { "base": 6, "mult": 1 }, "ac3": { "base": 8, "mult": 2 }, "ac4": { "base": 9, "mult": 2 } },
-                "2": { "pe": 6, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 9, "mult": 2 }, "ac3": { "base": 11, "mult": 3 }, "ac4": { "base": 13, "mult": 3 } },
-                "3": { "pe": 9, "ac1": { "base": 9, "mult": 2 }, "ac2": { "base": 11, "mult": 3 }, "ac3": { "base": 13, "mult": 4 }, "ac4": { "base": 15, "mult": 4 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 6,
+                        "mult": 1
+                    },
+                    "ac3": {
+                        "base": 8,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 9,
+                        "mult": 2
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 11,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 3
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 9,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 11,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 13,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 15,
+                        "mult": 4
+                    }
+                }
             }
         },
         {
@@ -338,14 +446,122 @@
             "alcance_nativo": "36m",
             "ritmo": "Caótico e móvel",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 3, "mult": 1 }, "ac2": { "base": 4, "mult": 2 }, "ac3": { "base": 6, "mult": 2 }, "ac4": { "base": 7, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 5, "mult": 2 }, "ac2": { "base": 7, "mult": 2 }, "ac3": { "base": 8, "mult": 3 }, "ac4": { "base": 9, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 9, "mult": 3 }, "ac3": { "base": 11, "mult": 4 }, "ac4": { "base": 13, "mult": 5 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 7,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 8,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 9,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 11,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 5
+                    }
+                }
             },
             "tabela_cura": {
-                "1": { "pe": 3, "ac1": { "base": 3, "mult": 1 }, "ac2": { "base": 4, "mult": 1 }, "ac3": { "base": 5, "mult": 2 }, "ac4": { "base": 7, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 5, "mult": 2 }, "ac2": { "base": 7, "mult": 2 }, "ac3": { "base": 9, "mult": 3 }, "ac4": { "base": 11, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 9, "mult": 3 }, "ac3": { "base": 12, "mult": 4 }, "ac4": { "base": 15, "mult": 5 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 4,
+                        "mult": 1
+                    },
+                    "ac3": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 7,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 11,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 12,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 15,
+                        "mult": 5
+                    }
+                }
             }
         },
         {
@@ -356,14 +572,122 @@
             "alcance_nativo": "18m",
             "ritmo": "Paciente",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 2, "mult": 1 }, "ac2": { "base": 3, "mult": 2 }, "ac3": { "base": 4, "mult": 2 }, "ac4": { "base": 5, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 4, "mult": 2 }, "ac2": { "base": 6, "mult": 2 }, "ac3": { "base": 7, "mult": 3 }, "ac4": { "base": 9, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 6, "mult": 2 }, "ac2": { "base": 8, "mult": 3 }, "ac3": { "base": 10, "mult": 3 }, "ac4": { "base": 12, "mult": 4 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 2,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 3,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 5,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 7,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 9,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 8,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 10,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 12,
+                        "mult": 4
+                    }
+                }
             },
             "tabela_cura": {
-                "1": { "pe": 3, "ac1": { "base": 3, "mult": 1 }, "ac2": { "base": 5, "mult": 2 }, "ac3": { "base": 6, "mult": 3 }, "ac4": { "base": 8, "mult": 4 } },
-                "2": { "pe": 6, "ac1": { "base": 6, "mult": 2 }, "ac2": { "base": 8, "mult": 3 }, "ac3": { "base": 10, "mult": 4 }, "ac4": { "base": 13, "mult": 5 } },
-                "3": { "pe": 9, "ac1": { "base": 8, "mult": 3 }, "ac2": { "base": 11, "mult": 4 }, "ac3": { "base": 14, "mult": 5 }, "ac4": { "base": 17, "mult": 6 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 6,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 8,
+                        "mult": 4
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 8,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 10,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 5
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 8,
+                        "mult": 3
+                    },
+                    "ac2": {
+                        "base": 11,
+                        "mult": 4
+                    },
+                    "ac3": {
+                        "base": 14,
+                        "mult": 5
+                    },
+                    "ac4": {
+                        "base": 17,
+                        "mult": 6
+                    }
+                }
             }
         },
         {
@@ -374,14 +698,122 @@
             "alcance_nativo": "18m",
             "ritmo": "Moderado",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 2, "mult": 2 }, "ac2": { "base": 3, "mult": 2 }, "ac3": { "base": 4, "mult": 3 }, "ac4": { "base": 5, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 4, "mult": 2 }, "ac2": { "base": 6, "mult": 3 }, "ac3": { "base": 7, "mult": 3 }, "ac4": { "base": 9, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 9, "mult": 3 }, "ac3": { "base": 11, "mult": 4 }, "ac4": { "base": 13, "mult": 4 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 2,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 3,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 4,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 5,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 6,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 7,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 9,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 11,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 4
+                    }
+                }
             },
             "tabela_cura": {
-                "1": { "pe": 3, "ac1": { "base": 1, "mult": 1 }, "ac2": { "base": 2, "mult": 2 }, "ac3": { "base": 4, "mult": 2 }, "ac4": { "base": 5, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 3, "mult": 2 }, "ac2": { "base": 5, "mult": 2 }, "ac3": { "base": 7, "mult": 3 }, "ac4": { "base": 9, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 5, "mult": 2 }, "ac2": { "base": 8, "mult": 3 }, "ac3": { "base": 11, "mult": 4 }, "ac4": { "base": 14, "mult": 5 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 1,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 2,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 5,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 7,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 9,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 8,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 11,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 14,
+                        "mult": 5
+                    }
+                }
             }
         },
         {
@@ -392,14 +824,122 @@
             "alcance_nativo": "9m",
             "ritmo": "Deliberado",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 2, "mult": 2 }, "ac2": { "base": 3, "mult": 2 }, "ac3": { "base": 4, "mult": 3 }, "ac4": { "base": 5, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 4, "mult": 2 }, "ac2": { "base": 6, "mult": 3 }, "ac3": { "base": 7, "mult": 3 }, "ac4": { "base": 8, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 9, "mult": 3 }, "ac3": { "base": 11, "mult": 4 }, "ac4": { "base": 12, "mult": 5 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 2,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 3,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 4,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 5,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 6,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 7,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 8,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 11,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 12,
+                        "mult": 5
+                    }
+                }
             },
             "tabela_cura": {
-                "1": { "pe": 3, "ac1": { "base": 2, "mult": 1 }, "ac2": { "base": 4, "mult": 2 }, "ac3": { "base": 5, "mult": 2 }, "ac4": { "base": 7, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 4, "mult": 2 }, "ac2": { "base": 6, "mult": 2 }, "ac3": { "base": 8, "mult": 3 }, "ac4": { "base": 11, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 6, "mult": 2 }, "ac2": { "base": 9, "mult": 3 }, "ac3": { "base": 12, "mult": 4 }, "ac4": { "base": 15, "mult": 5 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 2,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 7,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 8,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 11,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 12,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 15,
+                        "mult": 5
+                    }
+                }
             }
         },
         {
@@ -410,9 +950,63 @@
             "alcance_nativo": "9m",
             "ritmo": "Alta intensidade",
             "tabela_dano": {
-                "1": { "pe": 3, "ac1": { "base": 5, "mult": 1 }, "ac2": { "base": 6, "mult": 2 }, "ac3": { "base": 8, "mult": 2 }, "ac4": { "base": 9, "mult": 3 } },
-                "2": { "pe": 6, "ac1": { "base": 7, "mult": 2 }, "ac2": { "base": 9, "mult": 2 }, "ac3": { "base": 11, "mult": 3 }, "ac4": { "base": 13, "mult": 4 } },
-                "3": { "pe": 9, "ac1": { "base": 9, "mult": 3 }, "ac2": { "base": 12, "mult": 3 }, "ac3": { "base": 14, "mult": 4 }, "ac4": { "base": 17, "mult": 5 } }
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 6,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 8,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 9,
+                        "mult": 3
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 11,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 4
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 9,
+                        "mult": 3
+                    },
+                    "ac2": {
+                        "base": 12,
+                        "mult": 3
+                    },
+                    "ac3": {
+                        "base": 14,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 17,
+                        "mult": 5
+                    }
+                }
             }
         }
     ],
@@ -823,6 +1417,15 @@
     "armaduras": {
         "tabela_base": [
             {
+                "categoria": "Sem Armadura",
+                "protecao_base": 0,
+                "multiplicador_pot": 0,
+                "multiplicador_hab": 0,
+                "penalidade": "Nenhuma",
+                "preco": "0 Đ",
+                "logica_calculo": "0 + (0 x POT) + (0 x HAB)"
+            },
+            {
                 "categoria": "Leve",
                 "protecao_base": 2,
                 "multiplicador_pot": 0,
@@ -890,6 +1493,15 @@
     },
     "escudos": {
         "tabela_base": [
+            {
+                "categoria": "Nenhum",
+                "pvs_base": 0,
+                "multiplicador_pot": 0,
+                "multiplicador_hab": 0,
+                "restricao": "Nenhuma",
+                "preco": "0 Đ",
+                "logica_calculo": "0"
+            },
             {
                 "categoria": "Leve",
                 "pvs_base": 4,
@@ -2098,6 +2710,30 @@
         },
         "elemento": {
             "iniciantes": [
+                {
+                    "id": 256,
+                    "nome": "Projétil Elemental",
+                    "requisito": "ANI 1",
+                    "efeito": "Ataques elementais a 9m (+3 PE). Projétil visível do elemento."
+                },
+                {
+                    "id": 257,
+                    "nome": "Alcance Elemental",
+                    "requisito": "ANI 2 + Projétil Elem.",
+                    "efeito": "Alcance médio 18m (+5 PE) e longo 36m (+8 PE). Exige linha de visão."
+                },
+                {
+                    "id": 258,
+                    "nome": "Área Elemental",
+                    "requisito": "ANI 2 + Projétil Elem.",
+                    "efeito": "Ataques em área (linha, cone ou explosão). +1 PE (3m) / +3 PE (6m)."
+                },
+                {
+                    "id": 259,
+                    "nome": "Potência Elemental",
+                    "requisito": "ANI 3",
+                    "efeito": "Desbloqueia Nível 3 (9 PE base). Sem este talento: apenas Nív. 1 e 2."
+                },
                 {
                     "id": 164,
                     "nome": "Economia de Energia",

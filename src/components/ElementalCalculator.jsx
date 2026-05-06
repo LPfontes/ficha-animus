@@ -1,34 +1,43 @@
 import React, { useState } from 'react';
-import { Zap } from 'lucide-react';
+import { Zap, Target, Activity, Brain, Shield, Flame, Info, ChevronDown } from 'lucide-react';
 import { ELEMENTAL_COSTS, ATTRIBUTES, ATTR_NAMES } from '../data/constants';
 import dados from '../dados.json';
 
 export default function ElementalCalculator({ element, attributes }) {
-  const elementData = dados.elementos.find(e => e.nome === element) || dados.elementos[0];
+  const [currentElement, setCurrentElement] = useState(element);
+  const elementData = dados.elementos.find(e => e.nome === currentElement) || dados.elementos[0];
   const [lv, setLv] = useState(1);
   const [dist, setDist] = useState('pessoal');
-  const [overRange, setOverRange] = useState(false);
   const [customAttr, setCustomAttr] = useState('auto');
+  const [areaId, setAreaId] = useState('none');
 
-  const [area, setArea] = useState(0);
+  const nativeMeters = parseInt(elementData.alcance_nativo) || 0;
+  const selectedDistObj = ELEMENTAL_COSTS.distances.find(d => d.id === dist);
+  const selectedMeters = selectedDistObj?.meters || 0;
 
-  const isBase = lv === 1 && dist === 'pessoal' && !overRange;
+  const isOverRange = selectedMeters > nativeMeters;
+  const isBase = lv === 1 && dist === 'pessoal' && areaId === 'none';
 
   const customTableDano = elementData.tabela_dano?.[lv];
   const customTableCura = elementData.tabela_cura?.[lv];
   const customTable = customTableDano || customTableCura;
   const baseCost = customTable ? customTable.pe : (ELEMENTAL_COSTS.levels.find(l => l.lv === lv)?.cost || 3);
-  let distCost = ELEMENTAL_COSTS.distances.find(d => d.id === dist)?.cost || 0;
 
-  if (overRange) distCost *= 2;
+  let distCost = selectedDistObj?.cost || 0;
+  if (isOverRange) distCost *= 2;
 
-  const totalCost = baseCost + distCost + area;
+  const areaCost = ELEMENTAL_COSTS.areaCosts.find(a => a.id === areaId)?.cost || 0;
+  const totalCost = baseCost + distCost + areaCost;
 
-  // Render function for a single grid to avoid repetition
   const renderGrid = (tableData, labelTitle) => {
     return (
-      <div style={{ marginBottom: '2rem' }}>
-        {labelTitle && <div style={{ fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{labelTitle}</div>}
+      <div style={{ marginBottom: '2.5rem' }}>
+        {labelTitle && (
+          <div className="grid-section-title">
+            {labelTitle === "Dano" ? <Flame size={14} className="text-fire" /> : <Shield size={14} className="text-water" />}
+            {labelTitle}
+          </div>
+        )}
         <div className="damage-grid">
           {[
             { label: 'Ac.1 (2-5)', key: 'ac1', color: '#9494a3' },
@@ -36,8 +45,7 @@ export default function ElementalCalculator({ element, attributes }) {
             { label: 'Ac.3 (10-12)', key: 'ac3', color: '#9d4edd' },
             { label: 'Ac.4 (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
           ].map(hit => {
-            const autoBonusVal = Math.max(...(elementData.bonus.split(' ou ').map(opt => attributes[opt] || 0)), 0);
-            const bonusVal = customAttr === 'auto' ? autoBonusVal : (attributes[customAttr] || 0);
+            const bonusVal = customAttr === 'auto' ? (attributes.ANI || 0) : (attributes[customAttr] || 0);
 
             if (tableData) {
               const hitData = tableData[hit.key];
@@ -45,11 +53,11 @@ export default function ElementalCalculator({ element, attributes }) {
               return (
                 <div key={hit.label} className="hit-card" style={{ borderLeft: `4px solid ${hit.color}` }}>
                   <div className="hit-label">{hit.label}</div>
-                  <div className="hit-value" style={{ color: hit.color, fontSize: '1.5rem', fontWeight: '800' }}>
+                  <div className="hit-value" style={{ color: hit.color, fontSize: '1.6rem', fontWeight: '900' }}>
                     {finalDamage}
                   </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
-                    {hitData.base} + {hitData.mult}x {customAttr === 'auto' ? 'Atributo' : customAttr}
+                  <div className="hit-formula">
+                    {hitData.base} + {hitData.mult}x {customAttr === 'auto' ? 'Anima' : ATTR_NAMES[customAttr]}
                   </div>
                 </div>
               );
@@ -79,22 +87,32 @@ export default function ElementalCalculator({ element, attributes }) {
     <div className="glass-panel elemental-panel">
       <div className="panel-header">
         <div className="panel-title-group">
-          <Zap size={20} style={{ color: 'var(--air)' }} />
-          <h3 className="panel-title">Calculadora Elemental - {element}</h3>
+          <Zap size={20} className="text-air" />
+          <h3 className="panel-title">Mística Elemental</h3>
         </div>
+        <select 
+          className="header-select" 
+          value={currentElement} 
+          onChange={(e) => setCurrentElement(e.target.value)}
+          style={{ width: 'auto', minWidth: '120px' }}
+        >
+          {dados.elementos.map(e => (
+            <option key={e.nome} value={e.nome}>{e.nome}</option>
+          ))}
+        </select>
       </div>
 
-      <div className="element-info-grid mb-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.8rem', marginBottom: '1.5rem' }}>
-        <div className="info-tag"><strong>Alcance:</strong> {elementData.alcance_nativo}</div>
-        <div className="info-tag"><strong>Bônus:</strong> {elementData.bonus.replace(/POT/g, 'Potência').replace(/HAB/g, 'Habilidade').replace(/COG/g, 'Cognição').replace(/PER/g, 'Perspicácia').replace(/PRE/g, 'Presença').replace(/ANI/g, 'Anima')}</div>
-        <div className="info-tag"><strong>Ritmo:</strong> {elementData.ritmo}</div>
-        <div className="info-tag" style={{ borderLeft: '3px solid var(--water)' }}><strong>Força:</strong> {elementData.forca}</div>
-        <div className="info-tag" style={{ borderLeft: '3px solid var(--fire)' }}><strong>Fraqueza:</strong> {elementData.fraqueza}</div>
+      <div className="element-info-grid">
+        <div className="info-tag"><Target size={12} /> <strong>Alcance Nativo:</strong> {elementData.alcance_nativo}</div>
+        <div className="info-tag"><Info size={12} /> <strong>Atributo Ganho:</strong> {elementData.bonus}</div>
+        <div className="info-tag"><Activity size={12} /> <strong>Ritmo:</strong> {elementData.ritmo}</div>
+        <div className="info-tag" style={{ borderLeft: '2px solid var(--water)' }}><Shield size={12} className="text-water" /> <strong>Força:</strong> {elementData.forca}</div>
+        <div className="info-tag" style={{ borderLeft: '2px solid var(--fire)' }}><Flame size={12} className="text-fire" /> <strong>Fraqueza:</strong> {elementData.fraqueza}</div>
       </div>
 
       <div className="calc-container">
         <div className="calc-row">
-          <label className="input-label">Nível da Ação</label>
+          <label className="input-label">Nível da Ação Mística</label>
           <div className="button-group">
             {[1, 2, 3].map(n => (
               <button
@@ -102,15 +120,15 @@ export default function ElementalCalculator({ element, attributes }) {
                 onClick={() => setLv(n)}
                 className={lv === n ? 'flex-1' : 'secondary flex-1'}
               >
-                Lv {n}
+                Nível {n}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="calc-row">
-          <label className="input-label">Alcance da Ação</label>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className="calc-row-group">
+          <div className="calc-row">
+            <label className="input-label">Extensão de Alcance</label>
             <select
               className="input-field"
               value={dist}
@@ -118,46 +136,48 @@ export default function ElementalCalculator({ element, attributes }) {
             >
               {ELEMENTAL_COSTS.distances.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
             </select>
-            <div className="calc-row">
-              <label className="input-label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                <input
-                  type="checkbox"
-                  checked={overRange}
-                  onChange={(e) => setOverRange(e.target.checked)}
-                />
-                Ultrapassa Alcance Nativo ({elementData.alcance_nativo}) - Custo x2
-              </label>
-            </div>
+          </div>
+
+          <div className="calc-row">
+            <label className="input-label">Área de Efeito (Acro) </label>
+            <select
+              className="input-field"
+              value={areaId}
+              onChange={(e) => setAreaId(e.target.value)}
+            >
+              {ELEMENTAL_COSTS.areaCosts.map(a => <option key={a.id} value={a.id}>{a.name} (+{a.cost} PE)</option>)}
+            </select>
           </div>
         </div>
+
+        <div className="calc-row">
+          {isOverRange && (
+            <div className="over-range-alert animate-pulse">
+              <Info size={14} />
+              <span>Alcance selecionado ({selectedMeters}m) excede o Alcance Nativo ({elementData.alcance_nativo}). O custo de distância foi <strong>dobrado</strong>.</span>
+            </div>
+          )}
+        </div>
+
         <div className="result-area">
-          {isBase && <div className="badge">BASE</div>}
-          <div className="stat-label" style={{ color: 'var(--air)', textTransform: 'uppercase' }}>Custo Total</div>
-          <div className="stat-value" style={{ fontSize: '2.5rem', color: 'var(--air)' }}>{totalCost} PE</div>
+          <div className="stat-label" style={{ color: 'var(--air)' }}>CUSTO DE ENERGIA</div>
+          <div className="stat-value" style={{ fontSize: '2.8rem', color: 'var(--air)' }}>{totalCost} PE</div>
+          {isBase && <div className="badge" style={{ position: 'absolute', top: '10px', right: '10px', background: 'var(--air)', color: 'black' }}>EFICIÊNCIA MÁXIMA</div>}
         </div>
       </div>
 
-      <div className="panel-subtitle" style={{ marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>
-        Cálculo de Cura / Dano Elemental
-      </div>
-
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-        <div className="inventory-notes" style={{ flex: 1, minWidth: '200px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-          {customTable ?
-            "Os valores para o seu Elemento são pré-calculados automaticamente usando as regras oficiais do sistema e o atributo bônus selecionado." :
-            "Insira os valores base da sua habilidade para calcular o total com o seu Bônus Elemental."
-          }
+      <div className="panel-subtitle-premium">
+        <div className="panel-title-group">
+          <Brain size={16} />
+          <span>Matriz de Potencialidade (Cálculo)</span>
         </div>
-
-        <div className="input-group" style={{ minWidth: '180px' }}>
-          <label className="input-label" style={{ fontSize: '0.7rem' }}>ATRIBUTO BÔNUS</label>
+        <div className="input-group" style={{ minWidth: '220px' }}>
           <select
-            className="input-field"
+            className="header-select"
             value={customAttr}
             onChange={(e) => setCustomAttr(e.target.value)}
-            style={{ padding: '0.4rem' }}
           >
-            <option value="auto">Automático ({elementData.bonus})</option>
+            <option value="auto">Usar Anima (Padrão)</option>
             {ATTRIBUTES.map(attr => (
               <option key={attr} value={attr}>{ATTR_NAMES[attr]} ({attr})</option>
             ))}
@@ -165,14 +185,16 @@ export default function ElementalCalculator({ element, attributes }) {
         </div>
       </div>
 
-      {customTable ? (
-        <>
-          {customTableDano && renderGrid(customTableDano, "Dano")}
-          {customTableCura && renderGrid(customTableCura, "Cura")}
-        </>
-      ) : (
-        renderGrid(null, null)
-      )}
+      <div className="grids-container">
+        {customTable ? (
+          <>
+            {customTableDano && renderGrid(customTableDano, "Dano")}
+            {customTableCura && renderGrid(customTableCura, "Cura")}
+          </>
+        ) : (
+          renderGrid(null, null)
+        )}
+      </div>
     </div>
   );
 }

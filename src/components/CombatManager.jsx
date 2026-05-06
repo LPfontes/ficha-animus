@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Swords } from 'lucide-react';
+import { Swords, Plus, Trash2, Shield as ShieldIcon, Info, ChevronRight, ChevronLeft } from 'lucide-react';
 import dados from '../dados.json';
 
 export default function CombatManager({ attributes, selectedArmor, setSelectedArmor, selectedShield, setSelectedShield }) {
@@ -9,90 +9,78 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
   ];
 
   const allArmors = dados.armaduras.tabela_base;
-  const allShields = [
-    { categoria: 'Nenhum', pvs_base: 0, multiplicador_pot: 0, multiplicador_hab: 0 },
-    ...dados.escudos.tabela_base
-  ];
+  const allShields = dados.escudos.tabela_base;
 
   const availableFeatures = [
-    "Reforçada", "Estratégica", "Peculiar", "Duas Mãos", 
-    "Alcance", "Ocultável", "Arremesso", "Híbrida", "Defensiva", 
-    "Aparar", "Sequente", "Serrilhada", "Alcance Ampliado", 
-    "Flexível", "Atordoante", "Dupla", "Leve", "Arremessável", 
+    "Reforçada", "Estratégica", "Peculiar", "Duas Mãos",
+    "Alcance", "Ocultável", "Arremesso", "Híbrida", "Defensiva",
+    "Aparar", "Sequente", "Serrilhada", "Alcance Ampliado",
+    "Flexível", "Atordoante", "Dupla", "Leve", "Arremessável",
     "Penetrante", "Encurvada", "Fio Afiado"
   ];
 
-  const [selectedWeapon, setSelectedWeapon] = useState(allWeapons[0]);
-  const [isBalanced, setIsBalanced] = useState(false);
-  const [customFeatures, setCustomFeatures] = useState([]);
-  const [newFeature, setNewFeature] = useState('');
-  const [showAddFeature, setShowAddFeature] = useState(false);
+  const [weapons, setWeapons] = useState([
+    { id: 'w1', data: allWeapons[0], isBalanced: false, customFeatures: [] }
+  ]);
+  const [activeWeaponId, setActiveWeaponId] = useState('w1');
 
-  const handleAddFeature = () => {
-    if (newFeature.trim()) {
-      setCustomFeatures([...customFeatures, newFeature.trim()]);
-      setNewFeature('');
-      setShowAddFeature(false);
+  const activeWeapon = weapons.find(w => w.id === activeWeaponId) || weapons[0];
+
+  const addWeapon = () => {
+    const newId = `w${Date.now()}`;
+    setWeapons([...weapons, { id: newId, data: allWeapons[0], isBalanced: false, customFeatures: [] }]);
+    setActiveWeaponId(newId);
+  };
+
+  const removeWeapon = (id) => {
+    if (weapons.length > 1) {
+      const newWeapons = weapons.filter(w => w.id !== id);
+      setWeapons(newWeapons);
+      if (activeWeaponId === id) {
+        setActiveWeaponId(newWeapons[0].id);
+      }
     }
   };
 
-  const removeFeature = (feat) => {
-    setCustomFeatures(customFeatures.filter(f => f !== feat));
+  const updateActiveWeapon = (field, value) => {
+    setWeapons(weapons.map(w => w.id === activeWeaponId ? { ...w, [field]: value } : w));
   };
 
-  const parseDamage = (formula) => {
+  const parseDamage = (weapon, formula) => {
     if (!formula) return 0;
     let pot = attributes.POT;
     let hab = attributes.HAB;
     let per = attributes.PER;
     let cog = attributes.COG;
-    
-    // Combine native weapon features and custom features
+
     const allFeatures = [
-      ...(selectedWeapon.caracteristicas || []),
-      ...customFeatures,
-      isBalanced ? 'equilibrada' : ''
+      ...(weapon.data.caracteristicas || []),
+      ...weapon.customFeatures,
+      weapon.isBalanced ? 'equilibrada' : ''
     ].map(f => f.toLowerCase().trim());
 
-    // Evaluate Equilibrada: Swaps POT for HAB
-    const hasEquilibrada = allFeatures.includes('equilibrada');
-    if (hasEquilibrada) {
-      pot = hab; // Replace POT modifier with HAB
+    if (allFeatures.includes('equilibrada')) {
+      pot = hab;
     }
-    
+
     const hasReforcada = allFeatures.includes('reforçada') || allFeatures.includes('reforcada');
     const hasEstrategica = allFeatures.includes('estratégica') || allFeatures.includes('estrategica');
     const hasPeculiar = allFeatures.includes('peculiar');
     const hasDuasMaos = allFeatures.includes('duas mãos') || allFeatures.includes('duas maos');
-    
-    // Base extra components
-    let extraPoints = 0;
-    
-    if (hasEquilibrada) {
-      extraPoints += hab; // +1xHAB multiplier
-    }
-    if (hasReforcada) {
-      extraPoints += pot; // +1xPOT multiplier (uses 'pot' which was swapped to hab if Equilibrada is active)
-    }
-    if (hasEstrategica) {
-      extraPoints += per; // +1xPER multiplier
-    }
-    if (hasPeculiar) {
-      extraPoints += cog; // +1xCOG multiplier
-    }
-    if (hasDuasMaos) {
-      extraPoints += 3; // +3 dano fixo
-    }
 
-    let expr = formula.replace(/POT/g, pot)
-      .replace(/HAB/g, hab)
-      .replace(/x/g, '*');
+    let extraPoints = 0;
+    if (allFeatures.includes('equilibrada')) extraPoints += hab;
+    if (hasReforcada) extraPoints += pot;
+    if (hasEstrategica) extraPoints += per;
+    if (hasPeculiar) extraPoints += cog;
+    if (hasDuasMaos) extraPoints += 3;
+
+    let expr = formula.replace(/POT/g, pot).replace(/HAB/g, hab).replace(/x/g, '*');
 
     try {
       const base = Function(`'use strict'; return (${expr})`)();
       return base + extraPoints;
     } catch (e) {
-      console.error("Error parsing formula:", formula, e);
       return 0;
     }
   };
@@ -108,32 +96,27 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
       <div className="panel-header">
         <div className="panel-title-group">
           <Swords size={20} className="text-accent" />
-          <h3 className="panel-title">Combate</h3>
+          <h3 className="panel-title">Foco de Combate</h3>
+        </div>
+        <div className="header-actions">
+          <select
+            className="header-select"
+            value={activeWeaponId}
+            onChange={(e) => setActiveWeaponId(e.target.value)}
+          >
+            {weapons.map((w, idx) => (
+              <option key={w.id} value={w.id}>
+                Slot {idx + 1}: {w.data.nome}
+              </option>
+            ))}
+          </select>
+          <button className="icon-btn" onClick={addWeapon} title="Adicionar Slot de Arma">
+            <Plus size={16} />
+          </button>
         </div>
       </div>
 
-      <div className="combat-selection-grid">
-        <div className="input-group">
-          <label className="input-label">ARMA ATIVA</label>
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <select
-              className="input-field flex-1"
-              value={selectedWeapon.id}
-              onChange={(e) => setSelectedWeapon(allWeapons.find(w => w.id === e.target.value))}
-            >
-              {allWeapons.map(w => <option key={w.id} value={w.id}>{w.nome} ({w.tipo})</option>)}
-            </select>
-            <label className="input-label checkbox-label">
-              <input
-                type="checkbox"
-                checked={isBalanced}
-                onChange={(e) => setIsBalanced(e.target.checked)}
-              />
-              Equilibrada
-            </label>
-          </div>
-        </div>
-
+      <div className="combat-selection-grid" style={{ marginBottom: '1.5rem' }}>
         <div className="input-group">
           <label className="input-label">ARMADURA</label>
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -166,67 +149,90 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
         </div>
       </div>
 
-      <div className="damage-grid">
-        {[
-          { label: 'Ac.1 (2-5)', key: 'ac1', color: '#9494a3' },
-          { label: 'Ac.2 (6-9)', key: 'ac2', color: '#4da6ff' },
-          { label: 'Ac.3 (10-12)', key: 'ac3', color: '#9d4edd' },
-          { label: 'Ac.4 (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
-        ].map(hit => (
-          <div key={hit.label} className="hit-card" style={{ borderLeft: `4px solid ${hit.color}` }}>
-            <div className="hit-label">{hit.label}</div>
-            <div className="hit-value" style={{ color: hit.color }}>
-              {parseDamage(selectedWeapon.dano[hit.key])}
+      <div className="focused-weapon-view">
+        <div className="weapon-card-premium active" key={activeWeapon.id}>
+          <div className="weapon-card-header">
+            <select
+              className="header-select-large"
+              value={activeWeapon.data.nome}
+              onChange={(e) => updateActiveWeapon('data', allWeapons.find(aw => aw.nome === e.target.value))}
+            >
+              {allWeapons.map(aw => <option key={aw.nome} value={aw.nome}>{aw.nome}</option>)}
+            </select>
+            <div className="weapon-actions">
+              <label className="header-checkbox">
+                <input
+                  type="checkbox"
+                  checked={activeWeapon.isBalanced}
+                  onChange={(e) => updateActiveWeapon('isBalanced', e.target.checked)}
+                />
+                <span>Equilibrada</span>
+              </label>
+              {weapons.length > 1 && (
+                <button className="icon-btn danger" onClick={() => removeWeapon(activeWeapon.id)}>
+                  <Trash2 size={14} />
+                </button>
+              )}
             </div>
           </div>
-        ))}
-      </div>
 
-      <div className="weapon-features">
-        <span className="features-label">Características:</span>
-        <div className="features-list">
-          {selectedWeapon.caracteristicas?.map(feat => (
-            <span key={feat} className="feature-tag" title={dados.caracteristicas_armas?.[feat] || feat}>{feat}</span>
-          ))}
-          {customFeatures.map(feat => (
-            <span key={feat} className="feature-tag custom" onClick={() => removeFeature(feat)} title={dados.caracteristicas_armas?.[feat] ? `${dados.caracteristicas_armas[feat]} (Clique para remover)` : "Clique para remover"}>
-              {feat} <span className="remove-x">×</span>
-            </span>
-          ))}
+          <div className="damage-grid">
+            {[
+              { label: 'Ac.1', key: 'ac1', color: '#9494a3' },
+              { label: 'Ac.2', key: 'ac2', color: '#4da6ff' },
+              { label: 'Ac.3', key: 'ac3', color: '#9d4edd' },
+              { label: 'Ac.4', key: 'ac4', color: '#ff4d4d' }
+            ].map(hit => (
+              <div key={hit.label} className="hit-card" style={{ borderLeft: `4px solid ${hit.color}` }}>
+                <div className="hit-label">{hit.label}</div>
+                <div className="hit-value" style={{ color: hit.color, fontSize: '1.8rem' }}>
+                  {parseDamage(activeWeapon, activeWeapon.data.dano[hit.key])}
+                </div>
+              </div>
+            ))}
+          </div>
 
-          {showAddFeature ? (
-            <div className="add-feature-container">
+          <div className="weapon-features-mini" style={{ padding: '1rem', background: 'rgba(0,0,0,0.1)', borderRadius: '8px', marginTop: '1rem' }}>
+            <div className="features-label" style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Características & Modificadores</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {[...(activeWeapon.data.caracteristicas || []), ...activeWeapon.customFeatures].map(feat => (
+                <span key={feat} className={`feature-tag-mini ${activeWeapon.customFeatures.includes(feat) ? 'custom' : ''}`}
+                  title={dados.caracteristicas_armas?.[feat] || feat}
+                  onClick={() => {
+                    if (activeWeapon.customFeatures.includes(feat)) {
+                      updateActiveWeapon('customFeatures', activeWeapon.customFeatures.filter(f => f !== feat));
+                    }
+                  }}>
+                  {feat} {activeWeapon.customFeatures.includes(feat) && '×'}
+                </span>
+              ))}
               <select
-                className="add-feature-select"
+                className="add-feature-inline"
                 onChange={(e) => {
                   if (e.target.value) {
-                    setCustomFeatures([...customFeatures, e.target.value]);
-                    setShowAddFeature(false);
+                    updateActiveWeapon('customFeatures', [...activeWeapon.customFeatures, e.target.value]);
+                    e.target.value = '';
                   }
                 }}
-                onBlur={() => setShowAddFeature(false)}
-                autoFocus
               >
-                <option value="">Selecione...</option>
-                {availableFeatures.map(feat => (
-                  <option key={feat} value={feat} disabled={customFeatures.includes(feat)}>
-                    {feat}
-                  </option>
+                <option value="">+ Adicionar Modificador</option>
+                {availableFeatures.map(f => (
+                  <option key={f} value={f} disabled={[...(activeWeapon.data.caracteristicas || []), ...activeWeapon.customFeatures].includes(f)}>{f}</option>
                 ))}
               </select>
             </div>
-          ) : (
-            <button className="add-feature-btn" onClick={() => setShowAddFeature(true)} title="Adicionar Característica">+</button>
-          )}
+          </div>
         </div>
       </div>
 
-      <div className="inventory-notes" style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-        <span>Proteção Total: {calculateProtItem(selectedArmor) + calculateProtItem(selectedShield)}</span>
-        <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>
-          * Dica: Adicione características como "Reforçada", "Duas Mãos" ou "Estratégica" para calcular o dano automaticamente.
-        </span>
+      <div className="inventory-notes" style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent)' }}>
+          <ShieldIcon size={16} />
+          <span style={{ fontWeight: 800 }}>Proteção Total: {calculateProtItem(selectedArmor) + calculateProtItem(selectedShield)}</span>
+        </div>
       </div>
     </div>
   );
 }
+
+

@@ -3,13 +3,13 @@ import { Minus, Plus, Star, Sparkles, BookOpen, AlertCircle } from 'lucide-react
 import { ATTR_NAMES } from '../data/constants';
 import dados from '../dados.json';
 
-export default function UnifiedAbilities({ 
-  attributes, 
-  rawAttributes, 
-  setAttributes, 
-  level, 
-  pointsRemaining, 
-  bonusAttr, 
+export default function UnifiedAbilities({
+  attributes,
+  rawAttributes,
+  setAttributes,
+  level,
+  pointsRemaining,
+  bonusAttr,
   elementalBonusAttr,
   skills,
   setSkills,
@@ -67,7 +67,7 @@ export default function UnifiedAbilities({
     <div className="unified-abilities-container">
       <div className="unified-header glass-panel">
         <div className="panel-title-group">
-          <BookOpen size={24} className="text-accent" />
+          <BookOpen size={20} className="text-accent" />
           <h2 className="section-title">Atributos & Perícias</h2>
         </div>
         <div className="summary-badges">
@@ -85,7 +85,7 @@ export default function UnifiedAbilities({
               const attrSkills = dados.pericias[attrKey] || [];
               const hasBonus = attrKey === bonusAttr || attrKey === elementalBonusAttr;
               const val = attributes[attrKey];
-              
+
               return (
                 <div key={attrKey} className="attr-skill-box glass-panel">
                   <div className={`attr-header-row ${hasBonus ? 'has-bonus' : ''}`}>
@@ -99,8 +99,8 @@ export default function UnifiedAbilities({
                       </div>
                     </div>
                     <div className="attr-actions">
-                      <button className="mini-btn" onClick={() => updateAttr(attrKey, -1)}><Minus size={12}/></button>
-                      <button className="mini-btn" onClick={() => updateAttr(attrKey, 1)}><Plus size={12}/></button>
+                      <button className="mini-btn" onClick={() => updateAttr(attrKey, -1)}><Minus size={12} /></button>
+                      <button className="mini-btn" onClick={() => updateAttr(attrKey, 1)}><Plus size={12} /></button>
                     </div>
                   </div>
 
@@ -113,8 +113,8 @@ export default function UnifiedAbilities({
                           <div className="skill-unified-controls">
                             <div className="skill-boxes">
                               {[1, 2, 3].map(i => (
-                                <div 
-                                  key={i} 
+                                <div
+                                  key={i}
                                   className={`skill-box ${sLevel >= i ? 'filled' : ''}`}
                                   onClick={() => handleSkillChange(skill.nome, i > sLevel ? 1 : -1)}
                                 />

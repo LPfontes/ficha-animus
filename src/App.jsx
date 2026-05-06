@@ -4,7 +4,6 @@ import CombatManager from './components/CombatManager';
 import ElementalCalculator from './components/ElementalCalculator';
 import InventoryManager from './components/InventoryManager';
 import TalentsModal from './components/TalentsModal';
-import ExportActions from './components/ExportActions';
 import { INITIAL_POINTS, ATTRIBUTES, INITIAL_STATS, LEVEL_CAPS } from './data/constants';
 import { Shield, Heart, Zap, Star, Sparkles, Camera, ChevronUp, ChevronDown, User, Sword, Wand2, Backpack, BookOpen, StarHalf } from 'lucide-react';
 import ImageCropperModal from './components/ImageCropperModal';
@@ -511,7 +510,7 @@ function App() {
           </div>
         </div>
 
-        <ExportActions characterData={characterData} />
+
 
         <footer className="app-footer">
           Animus RPG System &copy; 2026 - Versão Beta
