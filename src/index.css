@@ -1852,7 +1852,7 @@ select:hover {
 }
 
 .hit-formula {
-  font-size: 0.65rem;
+  font-size: 1rem;
   color: var(--text-muted);
   margin-top: 0.4rem;
   font-family: monospace;
@@ -2176,4 +2176,29 @@ button.secondary {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.armor-details-mini {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.penalty-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--fire);
+  margin-top: 0.3rem;
+  line-height: 1.2;
+}
+
+.penalty-tag strong {
+  text-transform: uppercase;
+}
+
+.app-footer {
+  margin: 1%;
 }

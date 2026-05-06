@@ -40,10 +40,10 @@ export default function ElementalCalculator({ element, attributes }) {
         )}
         <div className="damage-grid">
           {[
-            { label: 'Ac.1 (2-5)', key: 'ac1', color: '#9494a3' },
-            { label: 'Ac.2 (6-9)', key: 'ac2', color: '#4da6ff' },
-            { label: 'Ac.3 (10-12)', key: 'ac3', color: '#9d4edd' },
-            { label: 'Ac.4 (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
+            { label: 'Acerto 1 (2-5)', key: 'ac1', color: '#9494a3' },
+            { label: 'Acerto 2 (6-9)', key: 'ac2', color: '#4da6ff' },
+            { label: 'Acerto 3 (10-12)', key: 'ac3', color: '#9d4edd' },
+            { label: 'Acerto 4 (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
           ].map(hit => {
             const bonusVal = customAttr === 'auto' ? (attributes.ANI || 0) : (attributes[customAttr] || 0);
 
@@ -90,9 +90,9 @@ export default function ElementalCalculator({ element, attributes }) {
           <Zap size={20} className="text-air" />
           <h3 className="panel-title">Mística Elemental</h3>
         </div>
-        <select 
-          className="header-select" 
-          value={currentElement} 
+        <select
+          className="header-select"
+          value={currentElement}
           onChange={(e) => setCurrentElement(e.target.value)}
           style={{ width: 'auto', minWidth: '120px' }}
         >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Swords, Plus, Trash2, Shield as ShieldIcon, Info, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Swords, Plus, Trash2, Shield as ShieldIcon, Info } from 'lucide-react';
 import dados from '../dados.json';
 
 export default function CombatManager({ attributes, selectedArmor, setSelectedArmor, selectedShield, setSelectedShield }) {
@@ -23,6 +23,8 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
     { id: 'w1', data: allWeapons[0], isBalanced: false, customFeatures: [] }
   ]);
   const [activeWeaponId, setActiveWeaponId] = useState('w1');
+  const [armorFeatures, setArmorFeatures] = useState([]);
+  const [shieldFeatures, setShieldFeatures] = useState([]);
 
   const activeWeapon = weapons.find(w => w.id === activeWeaponId) || weapons[0];
 
@@ -85,10 +87,39 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
     }
   };
 
-  const calculateProtItem = (item) => {
+  const calculateProtItem = (item, type = 'armor') => {
     if (!item) return 0;
-    const base = item.protecao_base || item.pvs_base || 0;
-    return base + (item.multiplicador_pot * attributes.POT) + (item.multiplicador_hab * attributes.HAB);
+    let base = item.protecao_base || item.pvs_base || 0;
+    let multPot = item.multiplicador_pot || 0;
+    let multHab = item.multiplicador_hab || 0;
+
+    const features = type === 'armor' ? armorFeatures : shieldFeatures;
+
+    features.forEach(feat => {
+      if (feat === 'Fortificada' || feat === 'Reforçado') base += 3;
+      if (feat === 'Reforçada') multPot += 1;
+      if (feat === 'Ágil') multHab += 1;
+    });
+
+    return base + (multPot * attributes.POT) + (multHab * attributes.HAB);
+  };
+
+  const getProtFormula = (item, type = 'armor') => {
+    if (!item) return "";
+    let base = item.protecao_base || item.pvs_base || 0;
+    let multPot = item.multiplicador_pot || 0;
+    let multHab = item.multiplicador_hab || 0;
+
+    const features = type === 'armor' ? armorFeatures : shieldFeatures;
+    let mods = [];
+
+    features.forEach(feat => {
+      if (feat === 'Fortificada' || feat === 'Reforçado') mods.push("+3 (Mod)");
+      if (feat === 'Reforçada') mods.push(`+1x${attributes.POT} (POT Mod)`);
+      if (feat === 'Ágil') mods.push(`+1x${attributes.HAB} (HAB Mod)`);
+    });
+
+    return `${base} + ${multPot}x${attributes.POT} (POT) + ${multHab}x${attributes.HAB} (HAB)${mods.length > 0 ? ' ' + mods.join(' ') : ''}`;
   };
 
   return (
@@ -119,32 +150,106 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
       <div className="combat-selection-grid" style={{ marginBottom: '1.5rem' }}>
         <div className="input-group">
           <label className="input-label">ARMADURA</label>
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <select
-              className="input-field flex-1"
-              value={selectedArmor?.categoria}
-              onChange={(e) => setSelectedArmor(allArmors.find(a => a.categoria === e.target.value))}
-            >
-              {allArmors.map(a => <option key={a.categoria} value={a.categoria}>{a.categoria}</option>)}
-            </select>
-            <div className="item-prot-badge">+{calculateProtItem(selectedArmor)}</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <select
+                className="input-field flex-1"
+                value={selectedArmor?.categoria}
+                onChange={(e) => {
+                  setSelectedArmor(allArmors.find(a => a.categoria === e.target.value));
+                  setArmorFeatures([]);
+                }}
+              >
+                {allArmors.map(a => <option key={a.categoria} value={a.categoria}>{a.categoria}</option>)}
+              </select>
+              <div className="item-prot-badge">+{calculateProtItem(selectedArmor, 'armor')}</div>
+            </div>
+            {selectedArmor && selectedArmor.categoria !== 'Sem Armadura' && (
+              <div className="armor-details-mini">
+                <div className="hit-formula" style={{ fontSize: '0.75rem' }}>
+                  {getProtFormula(selectedArmor, 'armor')}
+                </div>
+                <div className="penalty-tag">
+                  <Info size={10} /> <strong>Penalidade:</strong> {selectedArmor.penalidade}
+                </div>
+                <div className="equipment-features">
+                  {armorFeatures.map((feat, i) => (
+                    <span key={i} className="feature-tag-mini custom"
+                      onClick={() => setArmorFeatures(armorFeatures.filter((_, idx) => idx !== i))}
+                      title={dados.armaduras.caracteristicas_modulares.find(f => f.nome === feat)?.efeito}>
+                      {feat} ×
+                    </span>
+                  ))}
+                  <select
+                    className="add-feature-inline"
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        setArmorFeatures([...armorFeatures, e.target.value]);
+                        e.target.value = '';
+                      }
+                    }}
+                  >
+                    <option value="">+ Mod</option>
+                    {dados.armaduras.caracteristicas_modulares.map(f => (
+                      <option key={f.nome} value={f.nome}>{f.nome}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="input-group">
           <label className="input-label">ESCUDO</label>
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <select
-              className="input-field flex-1"
-              value={selectedShield?.categoria || 'Nenhum'}
-              onChange={(e) => {
-                const found = allShields.find(s => s.categoria === e.target.value);
-                setSelectedShield(found.categoria === 'Nenhum' ? null : found);
-              }}
-            >
-              {allShields.map(s => <option key={s.categoria} value={s.categoria}>{s.categoria}</option>)}
-            </select>
-            <div className="item-prot-badge">+{calculateProtItem(selectedShield)}</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <select
+                className="input-field flex-1"
+                value={selectedShield?.categoria || 'Nenhum'}
+                onChange={(e) => {
+                  const found = allShields.find(s => s.categoria === e.target.value);
+                  setSelectedShield(found.categoria === 'Nenhum' ? null : found);
+                  setShieldFeatures([]);
+                }}
+              >
+                {allShields.map(s => <option key={s.categoria} value={s.categoria}>{s.categoria}</option>)}
+              </select>
+              <div className="item-prot-badge">+{calculateProtItem(selectedShield, 'shield')}</div>
+            </div>
+            {selectedShield && selectedShield.categoria !== 'Nenhum' && (
+              <div className="armor-details-mini">
+                <div className="hit-formula" style={{ fontSize: '0.75rem' }}>
+                  {getProtFormula(selectedShield, 'shield')}
+                </div>
+                <div className="penalty-tag">
+                  <Info size={10} /> <strong>Restrição:</strong> {selectedShield.restricao}
+                </div>
+                <div className="equipment-features">
+                  {shieldFeatures.map((feat, i) => (
+                    <span key={i} className="feature-tag-mini custom"
+                      onClick={() => setShieldFeatures(shieldFeatures.filter((_, idx) => idx !== i))}
+                      title={dados.escudos.caracteristicas_modulares.find(f => f.nome === feat)?.efeito}>
+                      {feat} ×
+                    </span>
+                  ))}
+                  <select
+                    className="add-feature-inline"
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        setShieldFeatures([...shieldFeatures, e.target.value]);
+                        e.target.value = '';
+                      }
+                    }}
+                  >
+                    <option value="">+ Mod</option>
+                    {dados.escudos.caracteristicas_modulares.map(f => (
+                      <option key={f.nome} value={f.nome}>{f.nome}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -178,15 +283,55 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
 
           <div className="damage-grid">
             {[
-              { label: 'Ac.1', key: 'ac1', color: '#9494a3' },
-              { label: 'Ac.2', key: 'ac2', color: '#4da6ff' },
-              { label: 'Ac.3', key: 'ac3', color: '#9d4edd' },
-              { label: 'Ac.4', key: 'ac4', color: '#ff4d4d' }
+              { label: 'Acerto 1 (2-5)', key: 'ac1', color: '#9494a3' },
+              { label: 'Acerto 2 (6-9)', key: 'ac2', color: '#4da6ff' },
+              { label: 'Acerto 3 (10-12)', key: 'ac3', color: '#9d4edd' },
+              { label: 'Acerto 4 (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
             ].map(hit => (
               <div key={hit.label} className="hit-card" style={{ borderLeft: `4px solid ${hit.color}` }}>
                 <div className="hit-label">{hit.label}</div>
                 <div className="hit-value" style={{ color: hit.color, fontSize: '1.8rem' }}>
                   {parseDamage(activeWeapon, activeWeapon.data.dano[hit.key])}
+                </div>
+                <div className="hit-formula">
+                  {(() => {
+                    const formula = activeWeapon.data.dano[hit.key];
+                    if (!formula) return "";
+                    const allFeatures = [
+                      ...(activeWeapon.data.caracteristicas || []),
+                      ...activeWeapon.customFeatures,
+                      activeWeapon.isBalanced ? 'equilibrada' : ''
+                    ].map(f => f.toLowerCase().trim());
+
+                    let displayFormula = formula;
+                    if (activeWeapon.isBalanced) {
+                      displayFormula = displayFormula.replace(/POT/g, `${attributes.HAB} (HAB)`);
+                    } else {
+                      displayFormula = displayFormula.replace(/POT/g, `${attributes.POT} (POT)`);
+                    }
+                    displayFormula = displayFormula.replace(/HAB/g, `${attributes.HAB} (HAB)`);
+
+                    let mods = [];
+                    if (allFeatures.includes('reforçada') || allFeatures.includes('reforcada')) {
+                      const val = activeWeapon.isBalanced ? attributes.HAB : attributes.POT;
+                      const label = activeWeapon.isBalanced ? 'HAB' : 'POT';
+                      mods.push(`+1x${val} (${label})`);
+                    }
+                    if (allFeatures.includes('estratégica') || allFeatures.includes('estrategica')) {
+                      mods.push(`+1x${attributes.PER} (PER)`);
+                    }
+                    if (allFeatures.includes('peculiar')) {
+                      mods.push(`+1x${attributes.COG} (COG)`);
+                    }
+                    if (allFeatures.includes('duas mãos') || allFeatures.includes('duas maos')) {
+                      mods.push("+3");
+                    }
+                    if (activeWeapon.isBalanced) {
+                      mods.push(`+1x${attributes.HAB} (HAB)`);
+                    }
+
+                    return `${displayFormula}${mods.length > 0 ? ' ' + mods.join(' ') : ''}`;
+                  })()}
                 </div>
               </div>
             ))}
@@ -228,11 +373,9 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
       <div className="inventory-notes" style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent)' }}>
           <ShieldIcon size={16} />
-          <span style={{ fontWeight: 800 }}>Proteção Total: {calculateProtItem(selectedArmor) + calculateProtItem(selectedShield)}</span>
+          <span style={{ fontWeight: 800 }}>Proteção Total: {calculateProtItem(selectedArmor, 'armor') + calculateProtItem(selectedShield, 'shield')}</span>
         </div>
       </div>
     </div>
   );
 }
-
-
