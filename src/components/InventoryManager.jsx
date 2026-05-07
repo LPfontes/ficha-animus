@@ -152,7 +152,7 @@ export default function InventoryManager() {
                 <div className="meta-item"><strong>Preço:</strong> {activeItem.preco}</div>
                 <div className="meta-item"><strong>Peso:</strong> {activeItem.slots !== undefined ? activeItem.slots : 1} slots</div>
               </div>
-              <p className="item-description">{activeItem.efeito}</p>
+              <p className="item-description" dangerouslySetInnerHTML={{ __html: activeItem.efeito }} />
               
               <button 
                 className="w-full remove-item-btn" 

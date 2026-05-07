@@ -473,11 +473,9 @@ function App() {
                         <div className="ability-header">
                           <span className="ability-name">{hab.nome}</span>
                         </div>
-                        <span className="ability-desc">{hab.descricao}</span>
+                        <span className="ability-desc" dangerouslySetInnerHTML={{ __html: hab.descricao }} />
                         {hab.efeito_mecanico && (
-                          <span className="ability-effect-tag">
-                            {hab.efeito_mecanico}
-                          </span>
+                          <span className="ability-effect-tag" dangerouslySetInnerHTML={{ __html: hab.efeito_mecanico }} />
                         )}
                       </div>
                     ))}
@@ -506,7 +504,7 @@ function App() {
                             <div className="ability-header">
                               <span className="ability-name">{talent.nome}</span>
                             </div>
-                            <span className="ability-desc">{talent.efeito}</span>
+                            <span className="ability-desc" dangerouslySetInnerHTML={{ __html: talent.efeito }} />
                             <span className="ability-effect-tag">{talent.subcategoria}</span>
                           </div>
                         );
@@ -596,6 +594,9 @@ function App() {
         <TalentsModal
           level={level}
           ascendancy={ascendancy}
+          element={element}
+          attributes={totalAttributes}
+          skills={skills}
           selectedTalents={selectedTalents}
           setSelectedTalents={setSelectedTalents}
           onClose={() => setShowTalentsModal(false)}

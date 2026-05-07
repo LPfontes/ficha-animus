@@ -211,6 +211,27 @@ body {
   font-weight: 700;
 }
 
+.text-attribute {
+  color: #c89cff;
+  font-weight: 700;
+}
+
+.text-resource {
+  color: #4de6ff;
+  font-weight: 700;
+}
+
+.text-mechanic {
+  color: #ffca28;
+  font-weight: 700;
+}
+
+.text-condition {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+
 .tab-btn.active {
   opacity: 1;
   filter: grayscale(0);
@@ -1393,8 +1414,16 @@ select:hover {
 
 .talents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+}
+
+.talent-desc {
+  font-size: 1rem;
+  font-weight: 400;
+  padding-left: 5px;
+  padding-right: 5px;
+
+
 }
 
 .talent-card {
@@ -1436,8 +1465,9 @@ select:hover {
 
 .talent-title-area {
   display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .talent-name {
@@ -1511,10 +1541,68 @@ select:hover {
   margin: 0;
 }
 
-.talent-req,
-.talent-cost {
-  color: var(--text);
+.talent-req {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.5rem;
 }
+
+.talent-meta-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.2rem 0;
+}
+
+.talent-cost,
+.talent-trigger {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.talent-cost strong,
+.talent-trigger strong {
+  color: var(--accent);
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+
+.talent-options {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.talent-option-item {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.option-name {
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.option-cost {
+  font-style: italic;
+  font-weight: bold;
+}
+
 
 /* Inventory Management Premium */
 .inventory-panel {
