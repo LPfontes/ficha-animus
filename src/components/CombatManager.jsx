@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Swords, Plus, Trash2, Shield as ShieldIcon, Info } from 'lucide-react';
 import dados from '../dados.json';
+import WeaponCreatorModal from './WeaponCreatorModal';
 
 export default function CombatManager({ attributes, selectedArmor, setSelectedArmor, selectedShield, setSelectedShield }) {
   const allWeapons = [
@@ -25,6 +26,7 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
   const [activeWeaponId, setActiveWeaponId] = useState('w1');
   const [armorFeatures, setArmorFeatures] = useState([]);
   const [shieldFeatures, setShieldFeatures] = useState([]);
+  const [showCreator, setShowCreator] = useState(false);
 
   const activeWeapon = weapons.find(w => w.id === activeWeaponId) || weapons[0];
 
@@ -41,6 +43,11 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
       if (activeWeaponId === id) {
         setActiveWeaponId(newWeapons[0].id);
       }
+    } else {
+      // Se for a última arma, reseta o slot para o padrão
+      const defaultId = `w${Date.now()}`;
+      setWeapons([{ id: defaultId, data: allWeapons[0], isBalanced: false, customFeatures: [] }]);
+      setActiveWeaponId(defaultId);
     }
   };
 
@@ -80,8 +87,27 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
     let expr = formula.replace(/POT/g, pot).replace(/HAB/g, hab).replace(/x/g, '*');
 
     try {
-      const base = Function(`'use strict'; return (${expr})`)();
-      return base + extraPoints;
+      const baseValue = Function(`'use strict'; return (${expr})`)();
+      let finalDamage = baseValue + extraPoints;
+
+      // Handle Modular Characteristics from Weapon Creator
+      allFeatures.forEach(feat => {
+        // Composta: +1 dano base em todos os níveis
+        if (feat === 'composta') finalDamage += 1;
+        
+        // Puxada Reforçada / Calibre Aumentado: +1 no multiplicador de HAB
+        // Note: The formula already has HAB, so we just add HAB again
+        if (feat === 'puxada reforçada' || feat === 'puxada reforcada' || feat === 'calibre aumentado') {
+          finalDamage += attributes.HAB;
+        }
+
+        // Puxada Pesada: +1xPOT extra
+        if (feat === 'puxada pesada') {
+          finalDamage += attributes.POT;
+        }
+      });
+
+      return finalDamage;
     } catch (e) {
       return 0;
     }
@@ -144,8 +170,21 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
           <button className="icon-btn" onClick={addWeapon} title="Adicionar Slot de Arma">
             <Plus size={16} />
           </button>
+          <button className="icon-btn danger" onClick={() => removeWeapon(activeWeaponId)} title="Remover Arma Atual">
+            <Trash2 size={16} />
+          </button>
+          <button className="secondary small-btn" onClick={() => setShowCreator(true)} style={{ marginLeft: '0.5rem' }}>
+            Forjar Arma
+          </button>
         </div>
       </div>
+
+      <WeaponCreatorModal 
+        isOpen={showCreator} 
+        onClose={() => setShowCreator(false)} 
+        onAddWeapon={(newW) => setWeapons([...weapons, newW])}
+        attributes={attributes}
+      />
 
       <div className="combat-selection-grid" style={{ marginBottom: '1.5rem' }}>
         <div className="input-group">

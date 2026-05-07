@@ -1341,6 +1341,16 @@
                     "nome": "Supressor Rústico",
                     "efeito": "<span class=\"text-mechanic\">CD</span> de localização aumenta de 5 para 9; alcance -10m; quebra após 10 disparos",
                     "preco": "150 Đ"
+                },
+                {
+                    "nome": "Bipé Desmontável",
+                    "efeito": "Quando apoiado (gasta 1 <span class=\"text-mechanic\">PA</span>), o próximo ataque pode adicionar 1x <span class=\"text-attribute\">POT</span> ao <span class=\"text-mechanic\">dano</span>.",
+                    "preco": "120 Đ"
+                },
+                {
+                    "nome": "Antecarga",
+                    "efeito": "Recarga pela boca: 2 <span class=\"text-mechanic\">PA</span>; exige duas mãos livres; não pode ser feita em movimento.",
+                    "preco": "Incluso"
                 }
             ],
             "caracteristicas_principais": [
@@ -1433,6 +1443,41 @@
                 {
                     "nome": "Fio afiado",
                     "efeito": "Aumenta o multiplicador de um <span class=\"text-mechanic\">acerto Crítico</span> em +1x o atributo base.",
+                    "preco": "50 Đ"
+                },
+                {
+                    "nome": "Alcance ampliado",
+                    "efeito": "Aumenta o alcance corpo a corpo em +1,5m adicional (empilhável).",
+                    "preco": "75 Đ"
+                },
+                {
+                    "nome": "Dupla",
+                    "efeito": "Pode ser usada com 1 ou 2 mãos. Se usada com 2 mãos, concede +2 de <span class=\"text-mechanic\">dano</span> em todos os acertos.",
+                    "preco": "75 Đ"
+                },
+                {
+                    "nome": "Leve",
+                    "efeito": "Pode ser usada na mão secundária em combate com duas armas sem penalidade.",
+                    "preco": "50 Đ"
+                },
+                {
+                    "nome": "Arremesso Pesado",
+                    "efeito": "A arma pode ser lançada a alcance médio (até 30m) com <span class=\"text-attribute\">POT</span>.",
+                    "preco": "50 Đ"
+                },
+                {
+                    "nome": "Especializada",
+                    "efeito": "Escolha 1 manobra de combate; você recebe <span class=\"text-mechanic\">Vantagem</span> ao usá-la com esta arma.",
+                    "preco": "100 Đ"
+                },
+                {
+                    "nome": "Silenciosa",
+                    "efeito": "Ataques não produzem som; <span class=\"text-mechanic\">Vantagem</span> em emboscadas; não revela posição se estiver oculto.",
+                    "preco": "100 Đ"
+                },
+                {
+                    "nome": "Encurvada",
+                    "efeito": "Adiciona +1 de <span class=\"text-mechanic\">dano</span> no segundo acerto e +2 no quarto acerto. <br>Requisito: Arma Cortante ou Perfurante.",
                     "preco": "50 Đ"
                 }
             ]
