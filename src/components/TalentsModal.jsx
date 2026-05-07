@@ -18,6 +18,10 @@ export default function TalentsModal({ level, ascendancy, element, attributes, s
     return map;
   }, []);
 
+  const allSkillNames = useMemo(() => {
+    return Object.values(dados.pericias).flat().map(p => p.nome).sort();
+  }, []);
+
   const attrSiglas = { 1: 'POT', 2: 'HAB', 3: 'COG', 4: 'PER', 5: 'PRE', 6: 'ANI' };
 
   // Helper to check requirements using structured fields
@@ -35,7 +39,7 @@ export default function TalentsModal({ level, ascendancy, element, attributes, s
 
     // 3. Talent Prerequisites
     if (talent.requisitos_talentos_ids?.length > 0) {
-      if (!talent.requisitos_talentos_ids.every(id => selectedTalents.includes(id))) {
+      if (!talent.requisitos_talentos_ids.every(id => selectedTalents.some(t => t.id === id))) {
         return false;
       }
     }
@@ -94,13 +98,20 @@ export default function TalentsModal({ level, ascendancy, element, attributes, s
   ];
 
   const toggleTalent = (talentId) => {
-    if (selectedTalents.includes(talentId)) {
-      setSelectedTalents(selectedTalents.filter(id => id !== talentId));
+    const existing = selectedTalents.find(t => t.id === talentId);
+    if (existing) {
+      setSelectedTalents(selectedTalents.filter(t => t.id !== talentId));
     } else {
       if (talentsRemaining > 0) {
-        setSelectedTalents([...selectedTalents, talentId]);
+        setSelectedTalents([...selectedTalents, { id: talentId, metadata: {} }]);
       }
     }
+  };
+
+  const updateTalentMetadata = (talentId, metadata) => {
+    setSelectedTalents(selectedTalents.map(t => 
+      t.id === talentId ? { ...t, metadata } : t
+    ));
   };
 
   const getTalentList = () => {
@@ -238,7 +249,7 @@ export default function TalentsModal({ level, ascendancy, element, attributes, s
             ) : (
               <div className="talents-grid">
                 {displayedTalents.map((talent) => {
-                  const isSelected = selectedTalents.includes(talent.id);
+                  const isSelected = selectedTalents.some(t => t.id === talent.id);
                   const isDisabled = !isSelected && talentsRemaining <= 0;
 
                   return (
@@ -260,6 +271,22 @@ export default function TalentsModal({ level, ascendancy, element, attributes, s
                           {isSelected && <Check size={14} />}
                         </div>
                       </div>
+
+                      {isSelected && talent.id === 95 && (
+                        <div className="talent-metadata-config glass-panel" onClick={(e) => e.stopPropagation()}>
+                          <label className="input-label">Vincular a Perícia:</label>
+                          <select 
+                            className="input-field small-select"
+                            value={selectedTalents.find(t => t.id === 95)?.metadata?.skill || ''}
+                            onChange={(e) => updateTalentMetadata(95, { skill: e.target.value })}
+                          >
+                            <option value="">Selecione...</option>
+                            {allSkillNames.map(s => (
+                              <option key={s} value={s}>{s}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
 
                       <div className="talent-body">
                         {(talent.custo || talent.gatilho) && (

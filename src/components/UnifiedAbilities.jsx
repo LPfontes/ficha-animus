@@ -15,7 +15,8 @@ export default function UnifiedAbilities({
   setSkills,
   apRemaining,
   freeSlotsRemaining,
-  attrCap
+  attrCap,
+  selectedTalents
 }) {
 
   const updateAttr = (attr, delta) => {
@@ -41,6 +42,15 @@ export default function UnifiedAbilities({
     if (newLevel < 0 || newLevel > 3) return;
 
     if (delta > 0) {
+      const hasFocoForThisSkill = selectedTalents.some(t => 
+        (typeof t === 'object' ? t.id === 95 && t.metadata?.skill === skillName : t === 95)
+      );
+      
+      if (newLevel === 3 && !hasFocoForThisSkill) {
+        alert(`Nível Mestre exige o talento "Foco em Perícia" vinculado a: ${skillName}`);
+        return;
+      }
+
       if (currentLevel === 0 && freeSlotsRemaining > 0) {
         // Free slot used
       } else if (apRemaining <= 0) {
@@ -73,7 +83,7 @@ export default function UnifiedAbilities({
         <div className="summary-badges">
           <div className="badge points">Pontos de Atributo: <span>{pointsRemaining}</span></div>
           <div className="badge ap">AP Disponível: <span>{apRemaining}</span></div>
-          <div className="badge free">Vagas Livres: <span>{freeSlotsRemaining}</span></div>
+          <div className="badge free">Perícias: <span>{freeSlotsRemaining}</span></div>
         </div>
       </div>
 

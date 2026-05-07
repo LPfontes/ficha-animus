@@ -57,7 +57,7 @@ export default function SkillsManager({ skills, setSkills, apRemaining, freeSlot
         </div>
         <div className="skills-summary">
           <span className="info-tag">
-            Vagas Amador Livres: <strong className={freeSlotsRemaining > 0 ? 'text-water' : ''}>{freeSlotsRemaining}</strong>
+            Perícias Amador: <strong className={freeSlotsRemaining > 0 ? 'text-water' : ''}>{freeSlotsRemaining}</strong>
           </span>
           <span className="info-tag">
             AP Restante: <strong className={apRemaining > 0 ? 'text-accent' : ''}>{apRemaining}</strong>

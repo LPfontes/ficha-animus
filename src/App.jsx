@@ -6,7 +6,7 @@ import InventoryManager from './components/InventoryManager';
 import TalentsModal from './components/TalentsModal';
 import PersistenceManager from './components/PersistenceManager';
 import { INITIAL_POINTS, ATTRIBUTES, INITIAL_STATS, LEVEL_CAPS } from './data/constants';
-import { Shield, Heart, Zap, Star, Sparkles, Camera, ChevronUp, ChevronDown, User, Sword, Wand2, Backpack, BookOpen, StarHalf, Cloud } from 'lucide-react';
+import { Shield, Heart, Zap, Star, Sparkles, Plus, Camera, ChevronUp, ChevronDown, User, Sword, Wand2, Backpack, BookOpen, StarHalf, Cloud, AlertCircle } from 'lucide-react';
 import ImageCropperModal from './components/ImageCropperModal';
 import AscendancyBonusModal from './components/AscendancyBonusModal';
 import ElementalBonusModal from './components/ElementalBonusModal';
@@ -130,10 +130,10 @@ function App() {
   const pointsRemaining = attributePointsAvailable - attributesSpent;
 
   const characterData = {
-    name, level, ascendancy, element, 
+    name, level, ascendancy, element,
     baseAttributes: attributes,
     bonusAttributes: { ascendancy: ascendancyBonusAttr, elemental: elementalBonusAttr },
-    attributes: totalAttributes, 
+    attributes: totalAttributes,
     pv, pe, pa, protection,
     currentPv, currentPe, currentPa, currentProt,
     skills,
@@ -300,8 +300,8 @@ function App() {
 
                 <div className="info-stats-column flex-1">
                   <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-                    <button 
-                      className="primary cloud-sync-btn" 
+                    <button
+                      className="primary cloud-sync-btn"
                       onClick={() => setShowPersistenceModal(true)}
                       style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}
                     >
@@ -376,14 +376,51 @@ function App() {
 
 
                   <div className="stats-bar">
-                    <div className="stat-points-badge">Pontos de Status: {statPointsRemaining}</div>
+
+                    <div className="stat-points-info" style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', position: 'absolute', top: '-40px', right: 0, gap: '10px' }}>
+                      {/* AP Badge (Aptitude) */}
+                      <div className="stat-points-badge ap-badge" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>APTIDÃO (AP): {apTotal}</span>
+                        <button 
+                          className="mini-plus-btn"
+                          onClick={() => statPointsRemaining > 0 && setPointsSpentAp(p => p + 1)}
+                          title="Aumentar AP (Gasta 1 Ponto de Status)"
+                        >
+                          <Plus size={10} />
+                        </button>
+                      </div>
+
+                      <div className="stat-points-badge" style={{ position: 'relative', top: 0, right: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>Pontos de Status: {statPointsRemaining}</span>
+                        <button 
+                          className="mini-plus-btn"
+                          onClick={() => {
+                            if (pointsSpentAp > 0) {
+                              if (apRemaining > 0) {
+                                setPointsSpentAp(p => p - 1);
+                              } else {
+                                alert(`Você não pode reduzir seu AP! AP Disponível: ${apRemaining}. Remova níveis de perícias primeiro.`);
+                              }
+                            } else {
+                              alert("O AP bônus não pode ser negativo!");
+                            }
+                          }}
+                          title="Recuperar Ponto de Status (Diminui 1 AP)"
+                        >
+                          <Plus size={10} />
+                        </button>
+                      </div>
+                    </div>
+
+
+                    {/* Barra de Status (Cards) */}
                     {[
                       {
                         label: 'VIDAS (PV)', cur: currentPv, setCur: setCurrentPv, max: pv, icon: <Heart size={24} />, color: 'var(--fire)',
                         spent: pointsSpentPv, setSpent: setPointsSpentPv
                       },
                       {
-                        label: 'PROTEÇÃO', cur: currentProt, setCur: setCurrentProt, max: protection, icon: <Shield size={24} />, color: 'var(--water)',
+                        label: 'DEFESA', cur: currentProt, setCur: setCurrentProt, max: protection, icon: <Shield size={24} />, color: 'var(--water)',
                       },
                       {
                         label: 'ENERGIA (PE)', cur: currentPe, setCur: setCurrentPe, max: pe, icon: <Zap size={24} />, color: 'var(--air)',
@@ -413,6 +450,7 @@ function App() {
                               <span className="stat-max">/ {stat.max}</span>
                             </>
                           )}
+
                           {stat.setSpent ? (
                             <div className="stat-scroll-control"
                               onWheel={(e) => {
@@ -458,7 +496,6 @@ function App() {
                         </div>
                       </div>
                     ))}
-
                   </div>
                 </div>
 
@@ -496,13 +533,18 @@ function App() {
                     {selectedTalents.length === 0 ? (
                       <span className="text-muted" style={{ fontSize: '0.8rem' }}>Nenhum talento selecionado</span>
                     ) : (
-                      selectedTalents.map(tId => {
+                      selectedTalents.map(tData => {
+                        const tId = typeof tData === 'object' ? tData.id : tData;
                         const talent = getTalentById(tId);
                         if (!talent) return null;
+                        const linkedSkill = tData.metadata?.skill;
                         return (
-                          <div key={tId} className="talent-summary-tag">
+                          <div key={tId + (linkedSkill || '')} className="talent-summary-tag">
                             <div className="ability-header">
-                              <span className="ability-name">{talent.nome}</span>
+                              <span className="ability-name">
+                                {talent.nome}
+                                {linkedSkill && <span className="text-accent" style={{ marginLeft: '4px' }}>({linkedSkill})</span>}
+                              </span>
                             </div>
                             <span className="ability-desc" dangerouslySetInnerHTML={{ __html: talent.efeito }} />
                             <span className="ability-effect-tag">{talent.subcategoria}</span>
@@ -529,6 +571,7 @@ function App() {
               apRemaining={apRemaining}
               freeSlotsRemaining={freeSlotsRemaining}
               attrCap={LEVEL_CAPS[level]?.attrCap || 2}
+              selectedTalents={selectedTalents}
             />
           </div>
 
