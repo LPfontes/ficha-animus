@@ -3,7 +3,15 @@ import { Swords, Plus, Trash2, Shield as ShieldIcon, Info } from 'lucide-react';
 import dados from '../dados.json';
 import WeaponCreatorModal from './WeaponCreatorModal';
 
-export default function CombatManager({ attributes, selectedArmor, setSelectedArmor, selectedShield, setSelectedShield }) {
+export default function CombatManager({ 
+  attributes, 
+  selectedArmor, setSelectedArmor, 
+  selectedShield, setSelectedShield,
+  armorFeatures, setArmorFeatures,
+  shieldFeatures, setShieldFeatures,
+  weapons, setWeapons,
+  activeWeaponId, setActiveWeaponId
+}) {
   const allWeapons = [
     ...dados.armas.corpo_a_corpo.map(w => ({ ...w, id: w.nome })),
     ...dados.armas.longa_distancia.map(w => ({ ...w, id: w.nome }))
@@ -20,12 +28,6 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
     "Penetrante", "Encurvada", "Fio Afiado"
   ];
 
-  const [weapons, setWeapons] = useState([
-    { id: 'w1', data: allWeapons[0], isBalanced: false, customFeatures: [] }
-  ]);
-  const [activeWeaponId, setActiveWeaponId] = useState('w1');
-  const [armorFeatures, setArmorFeatures] = useState([]);
-  const [shieldFeatures, setShieldFeatures] = useState([]);
   const [showCreator, setShowCreator] = useState(false);
 
   const activeWeapon = weapons.find(w => w.id === activeWeaponId) || weapons[0];
@@ -55,7 +57,7 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
     setWeapons(weapons.map(w => w.id === activeWeaponId ? { ...w, [field]: value } : w));
   };
 
-  const parseDamage = (weapon, formula) => {
+  const parseDamage = (weapon, formula, hitKey) => {
     if (!formula) return 0;
     let pot = attributes.POT;
     let hab = attributes.HAB;
@@ -105,6 +107,12 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
         if (feat === 'puxada pesada') {
           finalDamage += attributes.POT;
         }
+
+        // Encurvada: +1 no ac2, +2 no ac4
+        if (feat === 'encurvada') {
+          if (hitKey === 'ac2') finalDamage += 1;
+          if (hitKey === 'ac4') finalDamage += 2;
+        }
       });
 
       return finalDamage;
@@ -147,6 +155,15 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
 
     return `${base} + ${multPot}x${attributes.POT} (POT) + ${multHab}x${attributes.HAB} (HAB)${mods.length > 0 ? ' ' + mods.join(' ') : ''}`;
   };
+
+  const activeFeatures = [
+    ...(activeWeapon?.data?.caracteristicas || []),
+    ...(activeWeapon?.customFeatures || [])
+  ].map(f => f.toLowerCase().trim());
+  
+  const isDefensive = activeFeatures.includes('defensiva');
+  const weaponDefBonus = isDefensive ? (attributes.HAB || 0) : 0;
+  const totalProtection = calculateProtItem(selectedArmor, 'armor') + calculateProtItem(selectedShield, 'shield') + weaponDefBonus;
 
   return (
     <div className="glass-panel combat-panel">
@@ -330,7 +347,7 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
               <div key={hit.label} className="hit-card" style={{ borderLeft: `4px solid ${hit.color}` }}>
                 <div className="hit-label">{hit.label}</div>
                 <div className="hit-value" style={{ color: hit.color, fontSize: '1.8rem' }}>
-                  {parseDamage(activeWeapon, activeWeapon.data.dano[hit.key])}
+                  {parseDamage(activeWeapon, activeWeapon.data.dano[hit.key], hit.key)}
                 </div>
                 <div className="hit-formula">
                   {(() => {
@@ -367,6 +384,10 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
                     }
                     if (activeWeapon.isBalanced) {
                       mods.push(`+1x${attributes.HAB} (HAB)`);
+                    }
+                    if (allFeatures.includes('encurvada')) {
+                      if (hit.key === 'ac2') mods.push("+1 (Encurvada)");
+                      if (hit.key === 'ac4') mods.push("+2 (Encurvada)");
                     }
 
                     return `${displayFormula}${mods.length > 0 ? ' ' + mods.join(' ') : ''}`;
@@ -412,7 +433,14 @@ export default function CombatManager({ attributes, selectedArmor, setSelectedAr
       <div className="inventory-notes" style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent)' }}>
           <ShieldIcon size={16} />
-          <span style={{ fontWeight: 800 }}>Proteção Total: {calculateProtItem(selectedArmor, 'armor') + calculateProtItem(selectedShield, 'shield')}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <span style={{ fontWeight: 800 }}>Proteção Total: {totalProtection}</span>
+            {isDefensive && (
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                (Inclui +{weaponDefBonus} de Arma Defensiva)
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>

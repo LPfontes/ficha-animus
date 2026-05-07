@@ -56,6 +56,19 @@ function App() {
   const [selectedArmor, setSelectedArmor] = useState(dados.armaduras.tabela_base[0]);
   const [selectedShield, setSelectedShield] = useState(null);
 
+  const [armorFeatures, setArmorFeatures] = useState([]);
+  const [shieldFeatures, setShieldFeatures] = useState([]);
+
+  const allWeaponsForApp = [
+    ...dados.armas.corpo_a_corpo.map(w => ({ ...w, id: w.nome })),
+    ...dados.armas.longa_distancia.map(w => ({ ...w, id: w.nome }))
+  ];
+
+  const [weapons, setWeapons] = useState([
+    { id: 'w1', data: allWeaponsForApp[0], isBalanced: false, customFeatures: [] }
+  ]);
+  const [activeWeaponId, setActiveWeaponId] = useState('w1');
+
   const [skills, setSkills] = useState({});
   const [selectedTalents, setSelectedTalents] = useState([]);
 
@@ -96,19 +109,38 @@ function App() {
   }, [attributes, ascendancyBonusAttr, elementalBonusAttr]);
 
   const protection = useMemo(() => {
-    let total = 0;
-    if (selectedArmor) {
-      total += selectedArmor.protecao_base +
-        (selectedArmor.multiplicador_pot * totalAttributes.POT) +
-        (selectedArmor.multiplicador_hab * totalAttributes.HAB);
+    const calculateProtItem = (item, features) => {
+      if (!item) return 0;
+      let base = item.protecao_base || item.pvs_base || 0;
+      let multPot = item.multiplicador_pot || 0;
+      let multHab = item.multiplicador_hab || 0;
+
+      features.forEach(feat => {
+        if (feat === 'Fortificada' || feat === 'Reforçado') base += 3;
+        if (feat === 'Reforçada') multPot += 1;
+        if (feat === 'Ágil') multHab += 1;
+      });
+
+      return base + (multPot * totalAttributes.POT) + (multHab * totalAttributes.HAB);
+    };
+
+    let total = calculateProtItem(selectedArmor, armorFeatures) + calculateProtItem(selectedShield, shieldFeatures);
+    
+    // Bonus Defensiva da Arma
+    const activeWeapon = weapons.find(w => w.id === activeWeaponId);
+    if (activeWeapon) {
+      const activeFeatures = [
+        ...(activeWeapon.data.caracteristicas || []),
+        ...activeWeapon.customFeatures
+      ].map(f => f.toLowerCase().trim());
+      
+      if (activeFeatures.includes('defensiva')) {
+        total += (totalAttributes.HAB || 0);
+      }
     }
-    if (selectedShield) {
-      total += selectedShield.pvs_base +
-        (selectedShield.multiplicador_pot * totalAttributes.POT) +
-        (selectedShield.multiplicador_hab * totalAttributes.HAB);
-    }
+
     return total;
-  }, [selectedArmor, selectedShield, totalAttributes]);
+  }, [selectedArmor, selectedShield, totalAttributes, armorFeatures, shieldFeatures, weapons, activeWeaponId]);
 
   const apTotal = 0 + levelBonus + pointsSpentAp; // AP starts at 0 + level bonus
 
@@ -200,7 +232,12 @@ function App() {
     setCurrentProt(protection);
     setCurrentPv(pv);
     setCurrentPe(pe);
-  }, []); // Only on mount
+  }, [protection, pv, pe]); // Update when max values change (or only once if preferred)
+  // Wait, if I want them to track damage, I shouldn't reset current on every max change.
+  // But for protection, it usually is always at max.
+  useEffect(() => {
+     setCurrentProt(protection);
+  }, [protection]);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -582,6 +619,14 @@ function App() {
               setSelectedArmor={setSelectedArmor}
               selectedShield={selectedShield}
               setSelectedShield={setSelectedShield}
+              armorFeatures={armorFeatures}
+              setArmorFeatures={setArmorFeatures}
+              shieldFeatures={shieldFeatures}
+              setShieldFeatures={setShieldFeatures}
+              weapons={weapons}
+              setWeapons={setWeapons}
+              activeWeaponId={activeWeaponId}
+              setActiveWeaponId={setActiveWeaponId}
             />
           </div>
 
