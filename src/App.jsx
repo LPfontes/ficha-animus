@@ -415,13 +415,13 @@ function App() {
                   <div className="stats-bar">
 
                     <div className="stat-points-info" style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', position: 'absolute', top: '-40px', right: 0, gap: '10px' }}>
-                      {/* AP Badge (Aptitude) */}
+                      {/* PP Badge (Perícia) */}
                       <div className="stat-points-badge ap-badge" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span>APTIDÃO (AP): {apTotal}</span>
+                        <span>PONTOS DE PERÍCIA (PP): {apTotal}</span>
                         <button 
                           className="mini-plus-btn"
                           onClick={() => statPointsRemaining > 0 && setPointsSpentAp(p => p + 1)}
-                          title="Aumentar AP (Gasta 1 Ponto de Status)"
+                          title="Aumentar PP (Gasta 1 Ponto de Status)"
                         >
                           <Plus size={10} />
                         </button>
@@ -436,13 +436,13 @@ function App() {
                               if (apRemaining > 0) {
                                 setPointsSpentAp(p => p - 1);
                               } else {
-                                alert(`Você não pode reduzir seu AP! AP Disponível: ${apRemaining}. Remova níveis de perícias primeiro.`);
+                                alert(`Você não pode reduzir seu PP! PP Disponível: ${apRemaining}. Remova níveis de perícias primeiro.`);
                               }
                             } else {
-                              alert("O AP bônus não pode ser negativo!");
+                              alert("O PP bônus não pode ser negativo!");
                             }
                           }}
-                          title="Recuperar Ponto de Status (Diminui 1 AP)"
+                          title="Recuperar Ponto de Status (Diminui 1 PP)"
                         >
                           <Plus size={10} />
                         </button>

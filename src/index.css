@@ -2665,3 +2665,133 @@ button.secondary {
   font-weight: bold;
   font-size: 0.9rem;
 }
+
+/* Selected Mods Summary */
+.selected-mods-summary {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.selected-mods-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.selected-mod-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(157, 78, 221, 0.15);
+  border: 1px solid var(--accent-glow);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  animation: slideInUp 0.3s ease-out;
+}
+
+.remove-mod-btn {
+  background: transparent;
+  padding: 0;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  height: auto;
+  width: auto;
+}
+
+.remove-mod-btn:hover {
+  color: var(--fire);
+  transform: scale(1.2);
+}
+
+.empty-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Efeitos e Terrenos Elementais */
+.element-effects-section {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.section-subtitle-premium-mini {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.4rem;
+}
+
+.effects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.effect-card {
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.effect-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.effect-card.inata {
+  border-left: 3px solid #ff6b6b;
+}
+
+.effect-card.avancada {
+  border-left: 3px solid #ffca28;
+}
+
+.effect-card.terreno {
+  border-left: 3px solid #4de6ff;
+}
+
+.effect-header {
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.effect-body {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .effects-grid {
+    grid-template-columns: 1fr;
+  }
+}

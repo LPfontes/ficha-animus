@@ -13,23 +13,23 @@
             "habilidades_inatas": [
                 {
                     "nome": "Garras",
-                    "descricao": "Lâminas naturais de queratina. <br>Use estatísticas de arma cortante leve.",
-                    "efeito_mecanico": "Permite ataque com 1 <span class=\"text-mechanic\">PA</span> (uma garra) ou 3 <span class=\"text-mechanic\">PA</span> (duas garras)."
+                    "descricao": "Lâminas naturais de queratina que surgem instantaneamente para combate, mantendo-se ocultas para manipulação precisa de objetos.",
+                    "efeito_mecanico": "Você pode atacar com uma garra (custa 1 Ponto de Ação) ou com as duas garras (custa 3 Pontos de Ação). Use as estatísticas de uma arma cortante leve."
                 },
                 {
                     "nome": "Reação Rápida",
-                    "descricao": "Ataques surpresa contra você têm <span class=\"text-mechanic\">Desvantagem</span> em vez de <span class=\"text-mechanic\">Vantagem</span>.",
-                    "efeito_mecanico": "Trasforma <span class=\"text-mechanic\">vantagem</span> em <span class=\"text-mechanic\">desvantagem</span> em ataques surpresa"
+                    "descricao": "Mesmo quando estiver distraído, você consegue reagir.",
+                    "efeito_mecanico": "Você não pode ser surpreendido por ataques que consiga ouvir ou ver (exceto se morrer ou ficar inconsciente). Ataques surpresa contra você têm Desvantagem em vez de Vantagem automática."
                 },
                 {
                     "nome": "Visão Noturna",
-                    "descricao": "Enxerga perfeitamente na escuridão sem penalidades.",
-                    "efeito_mecanico": "Ignorar penalidade escuridão"
+                    "descricao": "Pupilas verticais que se dilatam para captar luz mínima, revelando detalhes em completa escuridão.",
+                    "efeito_mecanico": "Enxergue perfeitamente na escuridão sem penalidades."
                 },
                 {
                     "nome": "Furtividade Felina",
-                    "descricao": "Movimentos instintivamente silenciosos.",
-                    "efeito_mecanico": "+1d em testes de Furtividade"
+                    "descricao": "Seus movimentos são instintivamente silenciosos e bem calculados.",
+                    "efeito_mecanico": "+1d em testes de furtividade."
                 }
             ]
         },
@@ -44,18 +44,23 @@
             "habilidades_inatas": [
                 {
                     "nome": "Presas",
-                    "descricao": "Dentes naturais. <br>Use estatísticas de arma cortante média.",
-                    "efeito_mecanico": "Ataque com 2 <span class=\"text-mechanic\">PA</span>."
+                    "descricao": "Dentes naturais que podem ser usados em combate.",
+                    "efeito_mecanico": "Você pode realizar uma mordida (custa 1 Ponto de Ação). Use as estatísticas de uma arma de corte média."
                 },
                 {
                     "nome": "Faro",
-                    "descricao": "Detecta nuances que outros não conseguem.",
-                    "efeito_mecanico": "+1d em testes de sentidos e percepção"
+                    "descricao": "Seu faro é afiado e detecta nuances que outros não conseguiriam.",
+                    "efeito_mecanico": "Ganha +1d em testes de sentidos e percepção."
+                },
+                {
+                    "nome": "Socialidade Inata",
+                    "descricao": "Você tem a capacidade natural de lidar com situações sociais.",
+                    "efeito_mecanico": "+1d em testes de Persuasão."
                 },
                 {
                     "nome": "Rosnado",
-                    "descricao": "Causa calafrios em outros seres.",
-                    "efeito_mecanico": "+1d em testes de Intimidação"
+                    "descricao": "Seu rosnado causa calafrios em outros seres, sendo um claro sinal de agressão.",
+                    "efeito_mecanico": "+1d em testes de Intimidação."
                 }
             ]
         },
@@ -70,18 +75,18 @@
             "habilidades_inatas": [
                 {
                     "nome": "Voo",
-                    "descricao": "Permite voar enquanto não usa armaduras médias ou pesadas.",
-                    "efeito_mecanico": "Gaste 1 <span class=\"text-mechanic\">PA</span> para decolar; move-se com dobro da velocidade; limite de <span class=\"text-attribute\">HAB</span> <span class=\"text-mechanic\">rodadas</span>."
+                    "descricao": "Possui asas que permitem voar enquanto não usa armaduras médias ou pesadas.",
+                    "efeito_mecanico": "Para decolar: gaste 1 Ponto de Ação e desloque-se com o dobro da velocidade normal. Limite de Voo sustentado: HAB rodadas por cena sem descanso. Após o limite, cada rodada adicional custa 1 Ponto de Ação extra de esforço."
                 },
                 {
-                    "nome": "Visão afiada",
-                    "descricao": "Olhos projetados para ver a longas distâncias.",
-                    "efeito_mecanico": "+1d em testes de Percepção"
+                    "nome": "Visão Afiada",
+                    "descricao": "Olhos projetados para ver a longas distâncias com grandes detalhes.",
+                    "efeito_mecanico": "+1d em testes de percepção."
                 },
                 {
                     "nome": "Ossos Ocos",
-                    "descricao": "Mais leve, porém mais frágil a impactos.",
-                    "efeito_mecanico": "<span class=\"text-mechanic\">Desvantagem</span> em Resistência contra impacto; +2 de <span class=\"text-mechanic\">dano</span> de fontes de concussão"
+                    "descricao": "Os ossos dos Falkos são ocos e leves — essenciais para o Voo, conferindo agilidade aérea natural.",
+                    "efeito_mecanico": "Você amortece quedas (dano reduzido à metade), realiza saltos assistidos (dobra a distância) e pode planar de plataformas elevadas."
                 }
             ]
         },
@@ -95,14 +100,29 @@
             "bonus_valor": 1,
             "habilidades_inatas": [
                 {
+                    "nome": "Presas",
+                    "descricao": "Dentes naturais que podem ser usados em combate.",
+                    "efeito_mecanico": "Você pode realizar uma mordida (custa 1 Ponto de Ação). Use as estatísticas de uma arma perfurante média."
+                },
+                {
                     "nome": "Ataque Venenoso",
-                    "descricao": "Inocula veneno preparado através das presas.",
-                    "efeito_mecanico": "2 cargas por sessão; <span class=\"text-mechanic\">CD</span> 7+<span class=\"text-attribute\">POT</span>; Escolha entre Mortal, Debilitante ou atordoante."
+                    "descricao": "Quando usa suas presas pode inocular veneno em seu oponente. Você possui 2 cargas de veneno preparado por sessão.",
+                    "efeito_mecanico": "CD de resistência: 7+POT do atacante. Escolha: Mortal (POT+metade do nível de dano por rodada durante 3 rodadas); Debilitante (desvantagem em testes físicos); Atordoante (desvantagem em testes mentais)."
+                },
+                {
+                    "nome": "Sorrateiro",
+                    "descricao": "Você sabe ser silencioso em quase todas as situações.",
+                    "efeito_mecanico": "+1d em testes de furtividade."
+                },
+                {
+                    "nome": "Dissimulação",
+                    "descricao": "Você consegue fingir com naturalidade.",
+                    "efeito_mecanico": "+1d em testes de enganação."
                 },
                 {
                     "nome": "Letargia do Sangue Frio",
-                    "descricao": "<span class=\"text-mechanic\">Reações</span> lentas em baixas temperaturas.",
-                    "efeito_mecanico": "Perde 1 <span class=\"text-mechanic\">PA</span> por turno em ambientes frios"
+                    "descricao": "Em ambientes de baixa temperatura, suas reações ficam lentas.",
+                    "efeito_mecanico": "Perde 1 ação por turno em ambientes frios."
                 }
             ]
         },
@@ -117,23 +137,28 @@
             "habilidades_inatas": [
                 {
                     "nome": "Presas",
-                    "descricao": "Dentes naturais usados em combate.",
-                    "efeito_mecanico": "Ataque com 2 <span class=\"text-mechanic\">PA</span>; use estatísticas de arma perfurante média."
+                    "descricao": "Dentes naturais que podem ser usados em combate.",
+                    "efeito_mecanico": "Você pode realizar uma mordida (custa 1 Ponto de Ação). Use as estatísticas de uma arma perfurante média."
                 },
                 {
                     "nome": "Sorrateiro",
-                    "descricao": "Silencioso por natureza.",
-                    "efeito_mecanico": "<span class=\"text-mechanic\">Vantagem</span> em testes de Furtividade"
+                    "descricao": "Você sabe ser silencioso em quase todas as situações.",
+                    "efeito_mecanico": "+1d em testes de Furtividade."
+                },
+                {
+                    "nome": "Socialidade Inata",
+                    "descricao": "Você tem a capacidade natural de lidar com situações sociais.",
+                    "efeito_mecanico": "+1d em testes de Persuasão."
                 },
                 {
                     "nome": "Fuga Evasiva",
-                    "descricao": "Capacidade de se deslocar rapidamente ao sofrer <span class=\"text-mechanic\">dano</span>.",
-                    "efeito_mecanico": "<span class=\"text-mechanic\">Reação</span>: mova-se 1,5m em direção segura ao receber <span class=\"text-mechanic\">dano</span>."
+                    "descricao": "Quando recebe dano, você pode se deslocar um quadrado (1,5m) em uma direção segura.",
+                    "efeito_mecanico": "Reação ao receber dano: mova-se 1,5m em direção segura."
                 },
                 {
                     "nome": "Mãos Leves",
-                    "descricao": "Movimentos manuais imperceptíveis.",
-                    "efeito_mecanico": "<span class=\"text-mechanic\">Vantagem</span> em testes de Prestidigitação"
+                    "descricao": "Você sabe mover suas mãos de forma furtiva e imperceptível.",
+                    "efeito_mecanico": "+1d em testes de Prestidigitação."
                 }
             ]
         },
@@ -148,18 +173,18 @@
             "habilidades_inatas": [
                 {
                     "nome": "Força Primal",
-                    "descricao": "Membros superiores fortes e adaptáveis.",
-                    "efeito_mecanico": "+1d em testes de Luta"
+                    "descricao": "Possui os membros superiores fortes e adaptáveis.",
+                    "efeito_mecanico": "+1d em testes de Luta."
                 },
                 {
                     "nome": "Mãos Hábeis",
-                    "descricao": "Gestos e movimentos complexos realizados com facilidade.",
-                    "efeito_mecanico": "+1d em testes de Prestidigitação"
+                    "descricao": "Suas mãos conseguem fazer gestos e movimentos complexos com facilidade.",
+                    "efeito_mecanico": "+1d em testes de Prestidigitação."
                 },
                 {
                     "nome": "Socialidade Inata",
-                    "descricao": "Capacidade natural de lidar com situações sociais.",
-                    "efeito_mecanico": "+1d em testes de Persuasão"
+                    "descricao": "Você tem a capacidade natural de lidar com situações sociais.",
+                    "efeito_mecanico": "+1d em testes de Persuasão."
                 }
             ]
         },
@@ -177,18 +202,73 @@
             "habilidades_inatas": [
                 {
                     "nome": "Versatilidade Genética",
-                    "descricao": "Descendente de múltiplas linhagens.",
-                    "efeito_mecanico": "Escolha 1 habilidade maior e 2 habilidades de perícia de outras Ascendências."
+                    "descricao": "Descendentes de múltiplas linhagens. Mais adaptáveis — pagando o preço de não ter uma identidade racial única.",
+                    "efeito_mecanico": "Escolha 1 habilidade maior de qualquer Ascendência (armas naturais, Voo, etc.) e 2 habilidades de perícia de qualquer Ascendência."
                 },
                 {
                     "nome": "Herança Composta",
-                    "descricao": "Evolução constante das habilidades raciais.",
-                    "efeito_mecanico": "Aprende uma 4ª habilidade no Nível 3 e uma 5ª habilidade no Nível 6."
+                    "descricao": "Ao atingir o nível 3, aprende uma 4ª habilidade (menor) de qualquer ascendência. Ao nível 6, aprende uma 5ª habilidade.",
+                    "efeito_mecanico": "Progressão de habilidades adicional nos níveis 3 e 6."
                 },
                 {
                     "nome": "Convergência",
-                    "descricao": "Acesso temporário ao poder total de uma linhagem.",
-                    "efeito_mecanico": "1x por arco: ativa todas as passivas de uma Ascendência por 1 cena; Fica Exausto por 1h após o uso."
+                    "descricao": "1x por arco narrativo: active o modo Convergência por 1 cena.",
+                    "efeito_mecanico": "Durante a cena, você tem acesso a todas as habilidades passivas de uma Ascendência completa escolhida. Ao fim da cena, fica Exausto por 1 hora."
+                }
+            ]
+        },
+        {
+            "id": "humano",
+            "nome": "Humano",
+            "bonus_atributo_opcoes": [
+                "POT",
+                "HAB",
+                "COG",
+                "PER",
+                "PRE"
+            ],
+            "bonus_valor": 1,
+            "habilidades_inatas": [
+                {
+                    "nome": "Adaptabilidade",
+                    "descricao": "Sem traços herdados marcantes, o humano compensa com versatilidade. Aprende rápido e se ajusta a qualquer situação.",
+                    "efeito_mecanico": "Receba +1 perícia adicional no nível 1 (5 perícias iniciais Amador em vez de 4)."
+                },
+                {
+                    "nome": "Socialidade Inata",
+                    "descricao": "Vocação social — humanos formam vínculos com facilidade e dialogam com quase qualquer interlocutor.",
+                    "efeito_mecanico": "+1d em testes de Persuasão."
+                },
+                {
+                    "nome": "Resiliência Comum",
+                    "descricao": "Corpo treinável, fôlego longo, tolerância a privações. O humano resiste onde criaturas mais especializadas falham.",
+                    "efeito_mecanico": "+1d em testes de Resistência."
+                }
+            ]
+        },
+        {
+            "id": "elfo",
+            "nome": "Elfo",
+            "bonus_atributo_opcoes": [
+                "HAB",
+                "PER"
+            ],
+            "bonus_valor": 1,
+            "habilidades_inatas": [
+                {
+                    "nome": "Sentidos Élficos",
+                    "descricao": "Olhos adaptados à penumbra das florestas antigas e ouvido afiado por séculos de caça e vigília.",
+                    "efeito_mecanico": "Enxergue em escuridão parcial sem penalidade. +1d em testes de Percepção."
+                },
+                {
+                    "nome": "Foco Ancestral",
+                    "descricao": "Tradição milenar de arco e flecha refina a mira além do que outras linhagens conseguem treinar.",
+                    "efeito_mecanico": "+1d em testes de Pontaria."
+                },
+                {
+                    "nome": "Memória das Eras",
+                    "descricao": "Longevidade natural permite aos elfos acumular conhecimento sobre eras esquecidas, criaturas raras e história antiga.",
+                    "efeito_mecanico": "+1d em testes de Conhecimento Arcano."
                 }
             ]
         }
@@ -333,13 +413,32 @@
             "forca": "Dano bruto puro",
             "fraqueza": "Nenhuma",
             "bonus": "HAB ou PRE",
-            "alcance_nativo": "9m",
+            "alcance_nativo": "6m",
             "ritmo": "Alta adrenalina",
             "tabela_dano": {
                 "1": {
                     "pe": 3,
                     "ac1": {
+                        "base": 3,
+                        "mult": 0
+                    },
+                    "ac2": {
                         "base": 5,
+                        "mult": 1
+                    },
+                    "ac3": {
+                        "base": 8,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 11,
+                        "mult": 4
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
                         "mult": 1
                     },
                     "ac2": {
@@ -347,85 +446,69 @@
                         "mult": 2
                     },
                     "ac3": {
-                        "base": 9,
-                        "mult": 2
-                    },
-                    "ac4": {
                         "base": 11,
                         "mult": 3
+                    },
+                    "ac4": {
+                        "base": 14,
+                        "mult": 5
                     }
                 },
-                "2": {
-                    "pe": 8,
+                "3": {
+                    "pe": 9,
                     "ac1": {
-                        "base": 7,
-                        "mult": 2
+                        "base": 6,
+                        "mult": 1
                     },
                     "ac2": {
                         "base": 10,
                         "mult": 2
                     },
                     "ac3": {
-                        "base": 12,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 14,
-                        "mult": 4
-                    }
-                },
-                "3": {
-                    "pe": 12,
-                    "ac1": {
-                        "base": 9,
-                        "mult": 3
-                    },
-                    "ac2": {
-                        "base": 12,
-                        "mult": 3
-                    },
-                    "ac3": {
                         "base": 14,
                         "mult": 4
                     },
                     "ac4": {
-                        "base": 17,
-                        "mult": 4
+                        "base": 18,
+                        "mult": 6
                     }
                 }
-            }
+            },
+            "condicao_inata": "Sobrecarga Elétrica: ao causar 4 acertos (Crítico), o próximo ataque de Trovão nessa cena tem +1d na rolagem.",
+            "condicao_avancada": "Paralisado — perde 1 Ponto de Ação por turno por 2 rodadas.",
+            "efeito_terreno": "Conduz eletricidade: +2 dano se Água presente."
         },
         {
             "nome": "Fogo",
             "forca": "Dano + Ignição",
             "fraqueza": "Nenhuma",
             "bonus": "POT ou PRE",
-            "alcance_nativo": "36m",
+            "alcance_nativo": "9m",
             "ritmo": "Pressão constante",
             "tabela_dano": {
                 "1": {
                     "pe": 3,
                     "ac1": {
-                        "base": 3,
+                        "base": 4,
                         "mult": 1
                     },
                     "ac2": {
                         "base": 6,
-                        "mult": 1
+                        "mult": 2
                     },
                     "ac3": {
-                        "base": 8,
+                        "base": 9,
                         "mult": 2
                     },
                     "ac4": {
-                        "base": 9,
+                        "base": 11,
                         "mult": 2
                     }
                 },
                 "2": {
                     "pe": 6,
                     "ac1": {
-                        "base": 7,
+                        "base": 6,
                         "mult": 2
                     },
                     "ac2": {
@@ -433,18 +516,18 @@
                         "mult": 2
                     },
                     "ac3": {
-                        "base": 11,
+                        "base": 12,
                         "mult": 3
                     },
                     "ac4": {
-                        "base": 13,
+                        "base": 15,
                         "mult": 3
                     }
                 },
                 "3": {
                     "pe": 9,
                     "ac1": {
-                        "base": 9,
+                        "base": 8,
                         "mult": 2
                     },
                     "ac2": {
@@ -452,79 +535,82 @@
                         "mult": 3
                     },
                     "ac3": {
-                        "base": 13,
-                        "mult": 4
+                        "base": 15,
+                        "mult": 3
                     },
                     "ac4": {
-                        "base": 15,
+                        "base": 19,
                         "mult": 4
                     }
                 }
-            }
+            },
+            "condicao_inata": "Ignição: ataques com 3+ acertos aplicam Ignição. O alvo não pode receber cura elemental até o fim de sua próxima rodada.",
+            "condicao_avancada": "Inferno — 3 dano/turno, afeta 1,5m ao redor.",
+            "efeito_terreno": "Incendeia superfícies; 1 dano/turno a quem cruzar."
         },
         {
             "nome": "Vento",
             "forca": "Controle + Cura PV/Prot.",
             "fraqueza": "Dano baixo",
             "bonus": "HAB ou PER",
-            "alcance_nativo": "36m",
+            "alcance_nativo": "12m",
             "ritmo": "Caótico e móvel",
             "tabela_dano": {
                 "1": {
                     "pe": 3,
                     "ac1": {
-                        "base": 3,
+                        "base": 2,
                         "mult": 1
                     },
                     "ac2": {
                         "base": 4,
-                        "mult": 2
+                        "mult": 1
                     },
                     "ac3": {
                         "base": 6,
                         "mult": 2
                     },
                     "ac4": {
-                        "base": 7,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     }
                 },
                 "2": {
                     "pe": 6,
                     "ac1": {
-                        "base": 5,
-                        "mult": 2
+                        "base": 4,
+                        "mult": 1
                     },
                     "ac2": {
-                        "base": 7,
+                        "base": 6,
                         "mult": 2
                     },
                     "ac3": {
                         "base": 8,
-                        "mult": 3
+                        "mult": 2
                     },
                     "ac4": {
-                        "base": 9,
-                        "mult": 4
+                        "base": 11,
+                        "mult": 3
                     }
                 },
                 "3": {
                     "pe": 9,
                     "ac1": {
-                        "base": 7,
+                        "base": 6,
                         "mult": 2
                     },
                     "ac2": {
-                        "base": 9,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     },
                     "ac3": {
                         "base": 11,
-                        "mult": 4
+                        "mult": 3
                     },
                     "ac4": {
-                        "base": 13,
-                        "mult": 5
+                        "base": 14,
+                        "mult": 3
                     }
                 }
             },
@@ -532,7 +618,7 @@
                 "1": {
                     "pe": 3,
                     "ac1": {
-                        "base": 3,
+                        "base": 2,
                         "mult": 1
                     },
                     "ac2": {
@@ -540,247 +626,65 @@
                         "mult": 1
                     },
                     "ac3": {
-                        "base": 5,
+                        "base": 6,
                         "mult": 2
                     },
                     "ac4": {
-                        "base": 7,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     }
                 },
                 "2": {
                     "pe": 6,
                     "ac1": {
-                        "base": 5,
-                        "mult": 2
+                        "base": 4,
+                        "mult": 1
                     },
                     "ac2": {
-                        "base": 7,
+                        "base": 6,
                         "mult": 2
                     },
                     "ac3": {
                         "base": 9,
-                        "mult": 3
+                        "mult": 2
                     },
                     "ac4": {
                         "base": 11,
-                        "mult": 4
+                        "mult": 3
                     }
                 },
                 "3": {
                     "pe": 9,
                     "ac1": {
-                        "base": 7,
+                        "base": 6,
                         "mult": 2
                     },
                     "ac2": {
-                        "base": 9,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     },
                     "ac3": {
-                        "base": 12,
-                        "mult": 4
+                        "base": 11,
+                        "mult": 3
                     },
                     "ac4": {
-                        "base": 15,
-                        "mult": 5
+                        "base": 14,
+                        "mult": 3
                     }
                 }
-            }
+            },
+            "condicao_inata": "Rajada: 3+ acertos empurram o alvo 3m (CD 7+ANI). 4 acertos: alvo também Derrubado (CD 9+ANI). Bônus: ao usar qualquer ataque de Vento, o conjurador se move 1,5m como ação livre.",
+            "condicao_avancada": "Derrubado — 3m + caído (4 acertos).",
+            "efeito_terreno": "Remove Desvantagem por vento em Pontaria."
         },
         {
             "nome": "Água",
             "forca": "Melhor cura PV",
             "fraqueza": "Dano lento",
             "bonus": "HAB ou COG",
-            "alcance_nativo": "18m",
+            "alcance_nativo": "9m",
             "ritmo": "Paciente",
             "tabela_dano": {
-                "1": {
-                    "pe": 3,
-                    "ac1": {
-                        "base": 2,
-                        "mult": 1
-                    },
-                    "ac2": {
-                        "base": 3,
-                        "mult": 2
-                    },
-                    "ac3": {
-                        "base": 4,
-                        "mult": 2
-                    },
-                    "ac4": {
-                        "base": 5,
-                        "mult": 3
-                    }
-                },
-                "2": {
-                    "pe": 6,
-                    "ac1": {
-                        "base": 4,
-                        "mult": 2
-                    },
-                    "ac2": {
-                        "base": 6,
-                        "mult": 2
-                    },
-                    "ac3": {
-                        "base": 7,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 9,
-                        "mult": 4
-                    }
-                },
-                "3": {
-                    "pe": 9,
-                    "ac1": {
-                        "base": 6,
-                        "mult": 2
-                    },
-                    "ac2": {
-                        "base": 8,
-                        "mult": 3
-                    },
-                    "ac3": {
-                        "base": 10,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 12,
-                        "mult": 4
-                    }
-                }
-            },
-            "tabela_cura": {
-                "1": {
-                    "pe": 3,
-                    "ac1": {
-                        "base": 3,
-                        "mult": 1
-                    },
-                    "ac2": {
-                        "base": 5,
-                        "mult": 2
-                    },
-                    "ac3": {
-                        "base": 6,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 8,
-                        "mult": 4
-                    }
-                },
-                "2": {
-                    "pe": 6,
-                    "ac1": {
-                        "base": 6,
-                        "mult": 2
-                    },
-                    "ac2": {
-                        "base": 8,
-                        "mult": 3
-                    },
-                    "ac3": {
-                        "base": 10,
-                        "mult": 4
-                    },
-                    "ac4": {
-                        "base": 13,
-                        "mult": 5
-                    }
-                },
-                "3": {
-                    "pe": 9,
-                    "ac1": {
-                        "base": 8,
-                        "mult": 3
-                    },
-                    "ac2": {
-                        "base": 11,
-                        "mult": 4
-                    },
-                    "ac3": {
-                        "base": 14,
-                        "mult": 5
-                    },
-                    "ac4": {
-                        "base": 17,
-                        "mult": 6
-                    }
-                }
-            }
-        },
-        {
-            "nome": "Madeira",
-            "forca": "Versátil: dano + cura + controle",
-            "fraqueza": "Vulnerável a Fogo",
-            "bonus": "POT ou PER",
-            "alcance_nativo": "18m",
-            "ritmo": "Moderado",
-            "tabela_dano": {
-                "1": {
-                    "pe": 3,
-                    "ac1": {
-                        "base": 2,
-                        "mult": 2
-                    },
-                    "ac2": {
-                        "base": 3,
-                        "mult": 2
-                    },
-                    "ac3": {
-                        "base": 4,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 5,
-                        "mult": 3
-                    }
-                },
-                "2": {
-                    "pe": 6,
-                    "ac1": {
-                        "base": 4,
-                        "mult": 2
-                    },
-                    "ac2": {
-                        "base": 6,
-                        "mult": 3
-                    },
-                    "ac3": {
-                        "base": 7,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 9,
-                        "mult": 4
-                    }
-                },
-                "3": {
-                    "pe": 9,
-                    "ac1": {
-                        "base": 7,
-                        "mult": 2
-                    },
-                    "ac2": {
-                        "base": 9,
-                        "mult": 3
-                    },
-                    "ac3": {
-                        "base": 11,
-                        "mult": 4
-                    },
-                    "ac4": {
-                        "base": 13,
-                        "mult": 4
-                    }
-                }
-            },
-            "tabela_cura": {
                 "1": {
                     "pe": 3,
                     "ac1": {
@@ -788,8 +692,8 @@
                         "mult": 1
                     },
                     "ac2": {
-                        "base": 2,
-                        "mult": 2
+                        "base": 3,
+                        "mult": 1
                     },
                     "ac3": {
                         "base": 4,
@@ -797,14 +701,14 @@
                     },
                     "ac4": {
                         "base": 5,
-                        "mult": 3
+                        "mult": 2
                     }
                 },
                 "2": {
                     "pe": 6,
                     "ac1": {
                         "base": 3,
-                        "mult": 2
+                        "mult": 1
                     },
                     "ac2": {
                         "base": 5,
@@ -812,33 +716,224 @@
                     },
                     "ac3": {
                         "base": 7,
-                        "mult": 3
+                        "mult": 2
                     },
                     "ac4": {
                         "base": 9,
-                        "mult": 4
+                        "mult": 3
                     }
                 },
                 "3": {
                     "pe": 9,
                     "ac1": {
                         "base": 5,
-                        "mult": 2
+                        "mult": 1
                     },
                     "ac2": {
-                        "base": 8,
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 10,
                         "mult": 3
+                    },
+                    "ac4": {
+                        "base": 12,
+                        "mult": 3
+                    }
+                }
+            },
+            "tabela_cura": {
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 0
+                    },
+                    "ac2": {
+                        "base": 5,
+                        "mult": 1
+                    },
+                    "ac3": {
+                        "base": 8,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 11,
+                        "mult": 4
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 7,
+                        "mult": 2
                     },
                     "ac3": {
                         "base": 11,
-                        "mult": 4
+                        "mult": 3
                     },
                     "ac4": {
                         "base": 14,
                         "mult": 5
                     }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 6,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 10,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 14,
+                        "mult": 4
+                    },
+                    "ac4": {
+                        "base": 18,
+                        "mult": 6
+                    }
                 }
-            }
+            },
+            "condicao_inata": "Saturado: 3+ acertos aplicam Saturado. O próximo dano elemental contra o alvo causa +1×ANI extra. Consome-se ao ativar.",
+            "condicao_avancada": "Encharcado — Atordoado + Saturado + mov. +1 Ponto de Ação.",
+            "efeito_terreno": "Conduz Trovão (+2 dano); dificulta Fogo (+2 PE)."
+        },
+        {
+            "nome": "Madeira",
+            "forca": "Versátil: dano + cura + controle",
+            "fraqueza": "Vulnerável a Fogo",
+            "bonus": "POT ou PER",
+            "alcance_nativo": "9m",
+            "ritmo": "Moderado",
+            "tabela_dano": {
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 3,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 5,
+                        "mult": 1
+                    },
+                    "ac3": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 10,
+                        "mult": 2
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 10,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 3
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 9,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 12,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 16,
+                        "mult": 4
+                    }
+                }
+            },
+            "tabela_cura": {
+                "1": {
+                    "pe": 3,
+                    "ac1": {
+                        "base": 2,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 3,
+                        "mult": 1
+                    },
+                    "ac3": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 7,
+                        "mult": 2
+                    }
+                },
+                "2": {
+                    "pe": 6,
+                    "ac1": {
+                        "base": 4,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 10,
+                        "mult": 3
+                    }
+                },
+                "3": {
+                    "pe": 9,
+                    "ac1": {
+                        "base": 6,
+                        "mult": 1
+                    },
+                    "ac2": {
+                        "base": 8,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 10,
+                        "mult": 3
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 3
+                    }
+                }
+            },
+            "condicao_inata": "Raízes: 3+ acertos aplicam Raízes (alvo Imobilizado por 1 turno; CD 8+ANI para escapar). Áreas de Madeira aplicam Terreno Difícil até o fim da cena.",
+            "condicao_avancada": "Enraizado — Imobilizado por 1 rodada.",
+            "efeito_terreno": "Raízes persistem; entrar: CD 8+ANI POT ou Raízes."
         },
         {
             "nome": "Terra",
@@ -852,57 +947,57 @@
                     "pe": 3,
                     "ac1": {
                         "base": 2,
-                        "mult": 2
+                        "mult": 1
                     },
                     "ac2": {
-                        "base": 3,
-                        "mult": 2
+                        "base": 4,
+                        "mult": 1
                     },
                     "ac3": {
-                        "base": 4,
-                        "mult": 3
+                        "base": 6,
+                        "mult": 2
                     },
                     "ac4": {
-                        "base": 5,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     }
                 },
                 "2": {
                     "pe": 6,
                     "ac1": {
                         "base": 4,
-                        "mult": 2
+                        "mult": 1
                     },
                     "ac2": {
                         "base": 6,
-                        "mult": 3
+                        "mult": 2
                     },
                     "ac3": {
-                        "base": 7,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     },
                     "ac4": {
-                        "base": 8,
-                        "mult": 4
+                        "base": 11,
+                        "mult": 3
                     }
                 },
                 "3": {
                     "pe": 9,
                     "ac1": {
-                        "base": 7,
-                        "mult": 2
+                        "base": 6,
+                        "mult": 1
                     },
                     "ac2": {
-                        "base": 9,
-                        "mult": 3
+                        "base": 8,
+                        "mult": 2
                     },
                     "ac3": {
-                        "base": 11,
-                        "mult": 4
+                        "base": 10,
+                        "mult": 3
                     },
                     "ac4": {
-                        "base": 12,
-                        "mult": 5
+                        "base": 13,
+                        "mult": 3
                     }
                 }
             },
@@ -910,91 +1005,113 @@
                 "1": {
                     "pe": 3,
                     "ac1": {
-                        "base": 2,
+                        "base": 3,
                         "mult": 1
                     },
                     "ac2": {
-                        "base": 4,
-                        "mult": 2
+                        "base": 5,
+                        "mult": 1
                     },
                     "ac3": {
-                        "base": 5,
+                        "base": 7,
                         "mult": 2
                     },
                     "ac4": {
-                        "base": 7,
+                        "base": 9,
                         "mult": 3
                     }
                 },
                 "2": {
                     "pe": 6,
                     "ac1": {
-                        "base": 4,
-                        "mult": 2
+                        "base": 5,
+                        "mult": 1
                     },
                     "ac2": {
-                        "base": 6,
+                        "base": 7,
                         "mult": 2
                     },
                     "ac3": {
-                        "base": 8,
+                        "base": 9,
                         "mult": 3
                     },
                     "ac4": {
-                        "base": 11,
-                        "mult": 4
+                        "base": 12,
+                        "mult": 3
                     }
                 },
                 "3": {
                     "pe": 9,
                     "ac1": {
-                        "base": 6,
+                        "base": 7,
                         "mult": 2
                     },
                     "ac2": {
                         "base": 9,
-                        "mult": 3
+                        "mult": 2
                     },
                     "ac3": {
                         "base": 12,
-                        "mult": 4
+                        "mult": 3
                     },
                     "ac4": {
                         "base": 15,
-                        "mult": 5
+                        "mult": 4
                     }
                 }
-            }
+            },
+            "condicao_inata": "Moldar Terra: 3+ acertos criam Formação de Terra (PV por tabela abaixo). Bloco Sólido (cobertura total) ou Barreira Ampla (3 quadrados). Conjurador ganha Proteção = ANI.",
+            "condicao_avancada": "Imobilizado — preso por pedra/terra por 1 rodada.",
+            "efeito_terreno": "Imobilizado na área recebe +2 dano de Terra."
         },
         {
             "nome": "Metal",
             "forca": "Crítico fácil + dano cresc.",
             "fraqueza": "Sem cura/controle",
             "bonus": "POT ou PER",
-            "alcance_nativo": "9m",
+            "alcance_nativo": "6m",
             "ritmo": "Alta intensidade",
             "tabela_dano": {
                 "1": {
                     "pe": 3,
                     "ac1": {
-                        "base": 5,
+                        "base": 3,
                         "mult": 1
                     },
                     "ac2": {
-                        "base": 6,
-                        "mult": 2
+                        "base": 5,
+                        "mult": 1
                     },
                     "ac3": {
                         "base": 8,
                         "mult": 2
                     },
                     "ac4": {
-                        "base": 9,
-                        "mult": 3
+                        "base": 10,
+                        "mult": 2
                     }
                 },
                 "2": {
                     "pe": 6,
+                    "ac1": {
+                        "base": 5,
+                        "mult": 2
+                    },
+                    "ac2": {
+                        "base": 7,
+                        "mult": 2
+                    },
+                    "ac3": {
+                        "base": 10,
+                        "mult": 2
+                    },
+                    "ac4": {
+                        "base": 13,
+                        "mult": 3
+                    }
+                },
+                "3": {
+                    "pe": 9,
                     "ac1": {
                         "base": 7,
                         "mult": 2
@@ -1004,34 +1121,18 @@
                         "mult": 2
                     },
                     "ac3": {
-                        "base": 11,
-                        "mult": 3
-                    },
-                    "ac4": {
-                        "base": 13,
-                        "mult": 4
-                    }
-                },
-                "3": {
-                    "pe": 9,
-                    "ac1": {
-                        "base": 9,
-                        "mult": 3
-                    },
-                    "ac2": {
                         "base": 12,
                         "mult": 3
                     },
-                    "ac3": {
-                        "base": 14,
-                        "mult": 4
-                    },
                     "ac4": {
-                        "base": 17,
-                        "mult": 5
+                        "base": 15,
+                        "mult": 3
                     }
                 }
-            }
+            },
+            "condicao_inata": "Penetração Plena: o dano de Metal ignora completamente a Proteção do alvo, indo direto em PV. Contra alvos usando armadura média ou pesada, ataques de Metal recebem +1 dano por acerto.",
+            "condicao_avancada": "Sangramento Grave — 3 PV/turno, ignora redução.",
+            "efeito_terreno": "Conduz Trovão; Madeira recebe +1 dano de Metal."
         }
     ],
     "caracteristicas_armas": {
@@ -1163,7 +1264,7 @@
                 "nome": "Lança Longa",
                 "tipo": "Perfurante Média",
                 "dano": {
-                    "ac1": "2 + 1xPOT",
+                    "ac1": "2",
                     "ac2": "3 + 1xPOT",
                     "ac3": "4 + 3xPOT",
                     "ac4": "7 + 6xPOT"
@@ -1179,7 +1280,7 @@
                 "nome": "Rapieira",
                 "tipo": "Perfurante Média",
                 "dano": {
-                    "ac1": "2 + 1xPOT",
+                    "ac1": "2",
                     "ac2": "3 + 1xPOT",
                     "ac3": "4 + 3xPOT",
                     "ac4": "7 + 6xPOT"
@@ -1194,10 +1295,10 @@
                 "nome": "Arco Curto",
                 "tipo": "Distância Leve",
                 "dano": {
-                    "ac1": "2",
-                    "ac2": "3 + 1xHAB",
-                    "ac3": "4 + 2xHAB",
-                    "ac4": "5 + 3xHAB"
+                    "ac1": "1 + 1xHAB",
+                    "ac2": "1 + 2xHAB",
+                    "ac3": "2 + 3xHAB",
+                    "ac4": "3 + 4xHAB"
                 },
                 "caracteristicas": [
                     "Distância 18m"
@@ -1209,10 +1310,10 @@
                 "nome": "Arco Longo",
                 "tipo": "Distância Média",
                 "dano": {
-                    "ac1": "3",
-                    "ac2": "4 + 2xHAB",
-                    "ac3": "6 + 3xHAB",
-                    "ac4": "8 + 3xHAB"
+                    "ac1": "1 + 2xHAB",
+                    "ac2": "2 + 3xHAB",
+                    "ac3": "3 + 4xHAB",
+                    "ac4": "5 + 5xHAB"
                 },
                 "caracteristicas": [
                     "Distância 36m",
@@ -1225,10 +1326,10 @@
                 "nome": "Besta Pesada",
                 "tipo": "Distância Média",
                 "dano": {
-                    "ac1": "2",
-                    "ac2": "3 + 1xHAB",
-                    "ac3": "4 + 3xHAB",
-                    "ac4": "7 + 6xHAB"
+                    "ac1": "1 + 2xHAB",
+                    "ac2": "2 + 3xHAB",
+                    "ac3": "3 + 4xHAB",
+                    "ac4": "5 + 5xHAB"
                 },
                 "caracteristicas": [
                     "Distância 36m",
@@ -1492,10 +1593,10 @@
                 "multiplicador_hab": 0,
                 "penalidade": "Nenhuma",
                 "preco": "0 Đ",
-                "logica_calculo": "0 + (0 x POT) + (0 x HAB)"
+                "logica_calculo": "0"
             },
             {
-                "categoria": "Leve",
+                "categoria": "Gibão de couro (Leve)",
                 "protecao_base": 2,
                 "multiplicador_pot": 0,
                 "multiplicador_hab": 1,
@@ -1504,7 +1605,16 @@
                 "logica_calculo": "2 + (0 x POT) + (1 x HAB)"
             },
             {
-                "categoria": "Média",
+                "categoria": "Couro curtido (Leve)",
+                "protecao_base": 2,
+                "multiplicador_pot": 0,
+                "multiplicador_hab": 1,
+                "penalidade": "Nenhuma",
+                "preco": "15 Đ",
+                "logica_calculo": "2 + (0 x POT) + (1 x HAB)"
+            },
+            {
+                "categoria": "Cota de escamas (Média)",
                 "protecao_base": 7,
                 "multiplicador_pot": 1,
                 "multiplicador_hab": 1,
@@ -1513,12 +1623,30 @@
                 "logica_calculo": "7 + (1 x POT) + (1 x HAB)"
             },
             {
-                "categoria": "Pesada",
+                "categoria": "Cota de malha (Média)",
+                "protecao_base": 7,
+                "multiplicador_pot": 1,
+                "multiplicador_hab": 1,
+                "penalidade": "+1 ação em Movimento (Correr, Deslocar-se)",
+                "preco": "40 Đ",
+                "logica_calculo": "7 + (1 x POT) + (1 x HAB)"
+            },
+            {
+                "categoria": "Armadura de placas (Pesada)",
                 "protecao_base": 12,
                 "multiplicador_pot": 2,
                 "multiplicador_hab": 0,
                 "penalidade": "+1 ação em QUALQUER ação; Desvantagem em Furtividade",
                 "preco": "60 Đ",
+                "logica_calculo": "12 + (2 x POT) + (0 x HAB)"
+            },
+            {
+                "categoria": "Armadura completa (Pesada)",
+                "protecao_base": 12,
+                "multiplicador_pot": 2,
+                "multiplicador_hab": 0,
+                "penalidade": "+1 ação em QUALQUER ação; Desvantagem em Furtividade",
+                "preco": "90 Đ",
                 "logica_calculo": "12 + (2 x POT) + (0 x HAB)"
             }
         ],
@@ -3941,7 +4069,7 @@
             "profissionais": [
                 {
                     "id": 105,
-                    "nome": "Ação Refinada",
+                    "nome": "Ação Refinada I",
                     "requisito": "",
                     "efeito": "Diminui o custo de uma <span class=\"text-mechanic\">ação</span> em 1 Ponto de <span class=\"text-mechanic\">ação</span> (mínimo 1). <br>[Compre esse talento várias vezes para cada tipo de <span class=\"text-mechanic\">ação</span>. <br>Só pode ser comprado 1 vez por tipo de <span class=\"text-mechanic\">ação</span>].",
                     "custo": "",
@@ -4658,8 +4786,8 @@
                 },
                 {
                     "id": 134,
-                    "nome": "Ação Refinada",
-                    "requisito": "Mestre em Perícia-Chave; ação Refinada.",
+                    "nome": "Ação Refinada II",
+                    "requisito": "Mestre em Perícia-Chave; ação Refinada I.",
                     "efeito": "Você diminui o custo da <span class=\"text-mechanic\">ação</span> escolhida em '<span class=\"text-mechanic\">ação</span> Refinada' em mais 1 (mínimo 1).",
                     "custo": "",
                     "gatilho": "",

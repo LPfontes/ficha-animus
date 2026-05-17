@@ -1,9 +1,17 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Sword, Target, Zap, Info, Plus, Flame } from 'lucide-react';
 import dados from '../dados.json';
 
 const WEAPON_TEMPLATES = {
+  cortante: {
+    label: 'Cortante',
+    icon: <Sword size={20} />,
+    color: '#ee5253',
+    atributo: 'POT',
+    leve: { ac1: [2, 0], ac2: [3, 1], ac3: [4, 2], ac4: [5, 3], custo: 5 },
+    media: { ac1: [3, 0], ac2: [4, 2], ac3: [6, 3], ac4: [8, 3], custo: 15 }
+  },
   contusa: {
     label: 'Contusa',
     icon: <Zap size={20} />,
@@ -14,8 +22,8 @@ const WEAPON_TEMPLATES = {
   },
   perfurante: {
     label: 'Perfurante',
-    icon: <Sword size={20} />,
-    color: '#ff4d4d',
+    icon: <Sword size={20} style={{ transform: 'rotate(45deg)' }} />,
+    color: '#00d2d3',
     atributo: 'POT',
     leve: { ac1: [1, 0], ac2: [2, 1], ac3: [3, 2], ac4: [5, 5], custo: 3 },
     media: { ac1: [2, 0], ac2: [3, 1], ac3: [4, 3], ac4: [7, 6], custo: 10 }
@@ -48,7 +56,7 @@ const WEAPON_TEMPLATES = {
 
 export default function WeaponCreatorModal({ isOpen, onClose, onAddWeapon, attributes }) {
   const [name, setName] = useState('');
-  const [type, setType] = useState('contusa');
+  const [type, setType] = useState('cortante');
   const [category, setCategory] = useState('leve');
   const [selectedMods, setSelectedMods] = useState([]);
 
@@ -65,8 +73,35 @@ export default function WeaponCreatorModal({ isOpen, onClose, onAddWeapon, attri
       mods = [...mods, ...dados.armas.caracteristicas_modulares.armas_de_fogo];
     }
     
-    return [...mods, ...dados.armas.caracteristicas_modulares.caracteristicas_principais];
+    // Add principal mods separately to keep them distinct if needed
+    const principalMods = [...dados.armas.caracteristicas_modulares.caracteristicas_principais];
+    
+    return {
+      table1: principalMods,
+      table2: mods
+    };
   }, [type]);
+
+  // Clean up selected mods if they are no longer available for the current type
+  useEffect(() => {
+    const allAvailableNames = [
+      ...availableMods.table1.map(m => m.nome),
+      ...availableMods.table2.map(m => m.nome)
+    ];
+    setSelectedMods(prev => prev.filter(modName => allAvailableNames.includes(modName)));
+  }, [type, availableMods]);
+
+  const table1Selected = useMemo(() => 
+    selectedMods.find(m => availableMods.table1.some(p => p.nome === m)) || ''
+  , [selectedMods, availableMods]);
+
+  const table2SelectedCount = useMemo(() => 
+    selectedMods.filter(m => availableMods.table2.some(p => p.nome === m)).length
+  , [selectedMods, availableMods]);
+
+  const allAvailableMods = useMemo(() => 
+    [...availableMods.table1, ...availableMods.table2]
+  , [availableMods]);
 
   const calculateDmg = (base, mult, fixed = 0) => {
     let attrType = currentTemplate.atributo;
@@ -88,9 +123,9 @@ export default function WeaponCreatorModal({ isOpen, onClose, onAddWeapon, attri
     const attrVal = attributes[attrType] || 0;
 
     selectedMods.forEach(modName => {
-      const mod = availableMods.find(m => m.nome === modName);
+      const mod = allAvailableMods.find(m => m.nome === modName);
       if (!mod) return;
-      if (mod.efeito.includes('+1 <span class="text-mechanic">dano</span> base')) finalBase += 1;
+      if (mod.efeito && mod.efeito.includes('+1 <span class="text-mechanic">dano</span> base')) finalBase += 1;
       if (modName === 'Puxada Reforçada' || modName === 'Calibre aumentado') extraPoints += (attributes.HAB || 0);
       if (modName === 'Puxada Pesada') extraPoints += (attributes.POT || 0);
     });
@@ -100,15 +135,17 @@ export default function WeaponCreatorModal({ isOpen, onClose, onAddWeapon, attri
 
   const totalCost = useMemo(() => {
     let cost = currentLevelData.custo;
+    
     selectedMods.forEach(modName => {
-      const mod = availableMods.find(m => m.nome === modName);
+      const mod = allAvailableMods.find(m => m.nome === modName);
       if (mod && mod.preco) {
-        const price = parseInt(mod.preco.replace(/\D/g, '')) || 0;
+        const priceStr = String(mod.preco).replace(/\D/g, '');
+        const price = parseInt(priceStr) || 0;
         cost += price;
       }
     });
     return cost;
-  }, [currentLevelData, selectedMods, availableMods]);
+  }, [currentLevelData, selectedMods, allAvailableMods]);
 
   const handleAdd = () => {
     if (!name) return alert('Dê um nome à sua arma!');
@@ -221,10 +258,10 @@ export default function WeaponCreatorModal({ isOpen, onClose, onAddWeapon, attri
             <label className="input-label">PREVIEW DE DANO ({currentTemplate.atributo} {attributes[currentTemplate.atributo]})</label>
             <div className="preview-grid">
               {[
-                { label: 'Ac.1', key: 'ac1' },
-                { label: 'Ac.2', key: 'ac2' },
-                { label: 'Ac.3', key: 'ac3' },
-                { label: 'CRÍT.', key: 'ac4' }
+                { label: 'Raso', key: 'ac1' },
+                { label: 'Padrão', key: 'ac2' },
+                { label: 'Forte', key: 'ac3' },
+                { label: 'Crítico', key: 'ac4' }
               ].map(hit => (
                 <div key={hit.key} className="preview-hit-card">
                   <span className="hit-name">{hit.label}</span>
@@ -236,64 +273,89 @@ export default function WeaponCreatorModal({ isOpen, onClose, onAddWeapon, attri
             </div>
           </div>
 
-          {/* Modificadores (Mods) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {/* Características Escolhidas */}
+          <div className="selected-mods-summary">
+            <label className="input-label">CARACTERÍSTICAS SELECIONADAS</label>
+            <div className="selected-mods-list">
+              {selectedMods.length === 0 && <span className="empty-text">Nenhuma característica selecionada</span>}
+              {selectedMods.map(modName => (
+                <div key={modName} className="selected-mod-item">
+                  <span>{modName}</span>
+                  <button className="remove-mod-btn" onClick={() => setSelectedMods(selectedMods.filter(m => m !== modName))}>
+                    <X size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Seletores de Modificadores */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="input-group">
-              <label className="input-label">CARACTERÍSTICA PRINCIPAL (TABELA 1 - MÁX 1)</label>
-              <div className="mods-container">
-                {dados.armas.caracteristicas_modulares.caracteristicas_principais.map(mod => {
-                  const isSelected = selectedMods.includes(mod.nome);
-                  return (
-                    <div 
-                      key={mod.nome} 
-                      className={`mod-tag ${isSelected ? 'active' : ''}`}
-                      onClick={() => {
-                        if (isSelected) {
-                          setSelectedMods(selectedMods.filter(m => m !== mod.nome));
-                        } else {
-                          const table1Names = dados.armas.caracteristicas_modulares.caracteristicas_principais.map(m => m.nome);
-                          const filtered = selectedMods.filter(m => !table1Names.includes(m));
-                          setSelectedMods([...filtered, mod.nome]);
-                        }
-                      }}
-                      title={mod.efeito.replace(/<[^>]*>/g, '')}
-                    >
-                      {mod.nome} (100 Đ)
-                    </div>
-                  );
-                })}
-              </div>
+              <label className="input-label">PRINCIPAL (TABELA 1)</label>
+              <select 
+                className="input-field"
+                value={table1Selected}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const table1Names = availableMods.table1.map(m => m.nome);
+                  const filtered = selectedMods.filter(m => !table1Names.includes(m));
+                  if (val) {
+                    setSelectedMods([...filtered, val]);
+                  } else {
+                    setSelectedMods(filtered);
+                  }
+                }}
+              >
+                <option value="">Nenhuma</option>
+                {availableMods.table1.map(mod => (
+                  <option key={mod.nome} value={mod.nome}>{mod.nome} (100 Đ)</option>
+                ))}
+              </select>
             </div>
 
             <div className="input-group">
-              <label className="input-label">CARACTERÍSTICAS MODULARES & COMPLEMENTARES (TABELA 2 - MÁX 3)</label>
-              <div className="mods-container">
-                {availableMods.filter(m => !dados.armas.caracteristicas_modulares.caracteristicas_principais.some(p => p.nome === m.nome)).map(mod => {
-                  const isSelected = selectedMods.includes(mod.nome);
-                  const table1Names = dados.armas.caracteristicas_modulares.caracteristicas_principais.map(m => m.nome);
-                  const table2Selected = selectedMods.filter(m => !table1Names.includes(m));
-
-                  return (
-                    <div 
-                      key={mod.nome} 
-                      className={`mod-tag ${isSelected ? 'active' : ''}`}
-                      onClick={() => {
-                        if (isSelected) {
-                          setSelectedMods(selectedMods.filter(m => m !== mod.nome));
-                        } else {
-                          if (table2Selected.length >= 3) {
-                            return alert("Você pode selecionar no máximo 3 características da Tabela 2!");
-                          }
-                          setSelectedMods([...selectedMods, mod.nome]);
-                        }
-                      }}
-                      title={mod.efeito.replace(/<[^>]*>/g, '')}
-                    >
-                      {mod.nome} ({mod.preco})
-                    </div>
-                  );
-                })}
-              </div>
+              <label className="input-label">COMPLEMENTARES (TABELA 2) [{table2SelectedCount}/3]</label>
+              <select 
+                className="input-field"
+                value=""
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (!val) return;
+                  if (selectedMods.includes(val)) return;
+                  
+                  if (table2SelectedCount >= 3) {
+                    return alert("Você pode selecionar no máximo 3 características da Tabela 2!");
+                  }
+                  setSelectedMods([...selectedMods, val]);
+                }}
+              >
+                <option value="" disabled>Adicionar (Máx 3)...</option>
+                {/* Grouping by source for better UX */}
+                <optgroup label="Características Complementares">
+                  {availableMods.table2
+                    .filter(m => dados.armas.caracteristicas_modulares.caracteristicas_complementares.some(c => c.nome === m.nome))
+                    .map(mod => (
+                      <option key={mod.nome} value={mod.nome} disabled={selectedMods.includes(mod.nome)}>
+                        {mod.nome} ({mod.preco})
+                      </option>
+                    ))
+                  }
+                </optgroup>
+                
+                {(type === 'distancia' || type === 'fogo') && (
+                  <optgroup label={type === 'distancia' ? "Propriedades Mecânicas" : "Propriedades de Fogo"}>
+                    {availableMods.table2
+                      .filter(m => !dados.armas.caracteristicas_modulares.caracteristicas_complementares.some(c => c.nome === m.nome))
+                      .map(mod => (
+                        <option key={mod.nome} value={mod.nome} disabled={selectedMods.includes(mod.nome)}>
+                          {mod.nome} ({mod.preco})
+                        </option>
+                      ))
+                    }
+                  </optgroup>
+                )}
+              </select>
             </div>
           </div>
 

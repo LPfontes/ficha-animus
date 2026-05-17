@@ -37,24 +37,21 @@ export const WEAPON_TYPES = [
 
 export const ELEMENTAL_COSTS = {
   levels: [
-    { lv: 1, cost: 3, req: null },
-    { lv: 2, cost: 6, req: null },
-    { lv: 3, cost: 9, req: 'Potência Elemental' }
+    { lv: 1, cost: 3, implements: 1 },
+    { lv: 2, cost: 6, implements: 2 },
+    { lv: 3, cost: 9, implements: 3 }
   ],
   distances: [
-    { id: 'pessoal', name: 'Pessoal (Toque / 0m)', cost: 0, meters: 0 },
-    { id: 'curto', name: 'Curto (9m)', cost: 3, meters: 9 },
-    { id: 'medio', name: 'Médio (18m)', cost: 6, meters: 18 },
-    { id: 'longo', name: 'Longo (36m)', cost: 10, meters: 36 }
+    { id: '0', name: 'Pessoal (Toque / 0m)', implements: 0, cost: 0 },
+    { id: '1', name: 'Curto (Alcance Nativo)', implements: 1, cost: 3 },
+    { id: '2', name: 'Médio (2x Alcance Nativo)', implements: 2, cost: 6 },
+    { id: '3', name: 'Longo (3x Alcance Nativo)', implements: 3, cost: 12 }
   ],
   areaCosts: [
-    { id: 'none', name: 'Alvo Único / Nenhum', cost: 0 },
-    { id: 'cone-9', name: 'Cone curto (9m)', cost: 3 },
-    { id: 'cone-18', name: 'Cone médio (18m)', cost: 6 },
-    { id: 'line-9', name: 'Linha curta (9m)', cost: 5 },
-    { id: 'line-18', name: 'Linha média (18m)', cost: 9 },
-    { id: 'burst-3', name: 'Explosão pequena (3m)', cost: 4 },
-    { id: 'burst-6', name: 'Explosão média (6m)', cost: 9 }
+    { id: 'none', name: 'Alvo Único / Nenhum', implements: 0, cost: 0 },
+    { id: 'pequena', name: 'Área Pequena', implements: 1, cost: 3 },
+    { id: 'media', name: 'Área Média', implements: 2, cost: 6 },
+    { id: 'grande', name: 'Área Grande', implements: 3, cost: 9 }
   ]
 };
 

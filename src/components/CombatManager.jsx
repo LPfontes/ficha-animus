@@ -339,10 +339,10 @@ export default function CombatManager({
 
           <div className="damage-grid">
             {[
-              { label: 'Acerto 1 (2-5)', key: 'ac1', color: '#9494a3' },
-              { label: 'Acerto 2 (6-9)', key: 'ac2', color: '#4da6ff' },
-              { label: 'Acerto 3 (10-12)', key: 'ac3', color: '#9d4edd' },
-              { label: 'Acerto 4 (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
+              { label: 'Raso (2-5)', key: 'ac1', color: '#9494a3' },
+              { label: 'Padrão (6-9)', key: 'ac2', color: '#4da6ff' },
+              { label: 'Forte (10-12)', key: 'ac3', color: '#9d4edd' },
+              { label: 'Crítico (Duplo 6)', key: 'ac4', color: '#ff4d4d' }
             ].map(hit => (
               <div key={hit.label} className="hit-card" style={{ borderLeft: `4px solid ${hit.color}` }}>
                 <div className="hit-label">{hit.label}</div>

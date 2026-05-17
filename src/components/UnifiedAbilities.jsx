@@ -82,7 +82,7 @@ export default function UnifiedAbilities({
         </div>
         <div className="summary-badges">
           <div className="badge points">Pontos de Atributo: <span>{pointsRemaining}</span></div>
-          <div className="badge ap">AP Disponível: <span>{apRemaining}</span></div>
+          <div className="badge ap">PP Disponível: <span>{apRemaining}</span></div>
           <div className="badge free">Perícias: <span>{freeSlotsRemaining}</span></div>
         </div>
       </div>
